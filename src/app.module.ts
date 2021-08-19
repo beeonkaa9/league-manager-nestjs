@@ -3,9 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { MemberModule } from './member/member.module';
+import { MatchModule } from './match/match.module';
+import { TeamModule } from './team/team.module';
+import { PersonModule } from './person/person.module';
+import { MemberModule } from './member/member.module';
 
 @Module({
-  imports: [DatabaseModule, MemberModule],
+  imports: [DatabaseModule, MemberModule, PersonModule, TeamModule, MatchModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,5 +1,4 @@
 export class Member {
-  balance: number;
   team_id: string | null;
   stats: Stats;
 }

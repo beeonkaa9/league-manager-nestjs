@@ -5,9 +5,33 @@ export class Person {
   phone: number;
   email: string;
   dob: Date;
-  role: string;
-  status: string;
+  role: Role;
+  status: Status;
   age: number;
 }
 
-//TODO: need to fix role and status to be enum strings ?
+enum Role {
+  Manager = 'MANAGER',
+  Coach = 'COACH',
+  Referee = 'REFEREE',
+  Linesman = 'LINESMAN',
+  MedicalStaff = 'MEDICALSTAFF',
+  ScoreKeeper = 'SCOREKEEPER',
+  Goalkeeper = 'GOALKEEPER',
+  RightFullback = 'RIGHTFULLBACK',
+  LeftFullback = 'LEFTFULLBACK',
+  CenterBack = 'CENTERBACK',
+  Sweeper = 'SWEEPER',
+  DefendingMidfielder = 'DEFENDINGMIDFIELDER',
+  RightMidfielder = 'RIGHTMIDFIELDER',
+  CentralMidfielder = 'CENTRALMIDFIELDER',
+  Striker = 'STRIKER',
+  AttackingMidfielder = 'ATTACKINGMIDFIELDER',
+  LeftMidfielder = 'LEFTMIDFIELDER',
+}
+
+enum Status {
+  active = 'ACTIVE',
+  inactive = 'INACTIVE',
+  suspended = 'SUSPENDED',
+}

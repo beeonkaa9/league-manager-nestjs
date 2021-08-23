@@ -1,6 +1,6 @@
 import { Timestamp } from 'typeorm';
 
-export class Match {
+export class CreateMatchDto {
   id: string;
   home: string;
   away: string;

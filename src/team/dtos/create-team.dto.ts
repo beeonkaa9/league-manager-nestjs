@@ -1,4 +1,4 @@
-export class Team {
+export class CreateTeamDto {
   id: string;
   name: string;
   coach: string;

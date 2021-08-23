@@ -1,8 +1,8 @@
-export class MemberStats {
-  shots_on_goal: number;
+export class CreateMemberDto {
+  team_id: string | null;
+  stats: Stats;
 }
 
-export class CreateMemberDto {
-  team_id: string;
-  stats: MemberStats;
+export class Stats {
+  shots_on_goal: number;
 }

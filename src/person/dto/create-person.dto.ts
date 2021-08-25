@@ -4,7 +4,7 @@ export class CreatePersonDto {
   last_name: string;
   phone: number;
   email: string;
-  dob: Date;
+  dob: string;
   role: Role;
   status: Status;
   age: number;

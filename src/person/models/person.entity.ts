@@ -1,13 +1,66 @@
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  TableInheritance,
+} from 'typeorm';
+
+@Entity()
+@TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export class Person {
-  id: string;
-  name: string;
-  last_name: string;
-  phone: number;
-  email: string;
-  dob: Date;
-  role: Role;
-  status: Status;
-  age: number;
+  @PrimaryGeneratedColumn()
+  private id: string;
+  get getId(): string {
+    return this.id;
+  }
+
+  @Column()
+  private name: string;
+  get getName(): string {
+    return this.name;
+  }
+
+  @Column()
+  private last_name: string;
+  get getLastName(): string {
+    return this.last_name;
+  }
+
+  @Column()
+  private phone: number;
+  get getPhone(): number {
+    return this.phone;
+  }
+
+  @Column()
+  private email: string;
+  get getEmail(): string {
+    return this.email;
+  }
+
+  @Column()
+  private dob: string;
+  get getDob(): string {
+    return this.dob;
+  }
+
+  @Column()
+  private role: Role;
+  get getRole(): string {
+    return this.role;
+  }
+
+  @Column()
+  private status: Status;
+  get getStatus(): Status {
+    return this.status;
+  }
+
+  @Column()
+  private age: number;
+  get getAge(): number {
+    return this.age;
+  }
 }
 
 enum Role {

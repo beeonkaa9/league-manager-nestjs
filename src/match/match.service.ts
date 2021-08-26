@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateMatchDto } from './dtos/create-match.dto';
 import { Match } from './models/match.entity';
 
 @Injectable()

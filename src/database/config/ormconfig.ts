@@ -1,14 +1,20 @@
+import { env } from 'env';
 import { ConnectionOptions } from 'typeorm';
 
-export const configuration: ConnectionOptions = {
+const configuration: ConnectionOptions = {
   type: 'postgres',
-  name: '',
-  host: '',
-  port: 5432,
-  username: '',
-  password: '',
-  database: '',
+  host: env.db.host,
+  port: env.db.port,
+  username: env.db.username,
+  password: env.db.password,
+  database: env.db.database,
   logging: true,
-  synchronize: true,
-  entities: ['entity/*.ts'],
+  synchronize: false,
+  entities: [__dirname + '/../../**/*.entity.{ts,js}'],
+  migrations: [__dirname + '/../migrations/*.{ts,js}'],
+  cli: {
+    migrationsDir: 'src/database/migrations',
+  },
 };
+
+export default configuration;

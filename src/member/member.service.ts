@@ -27,10 +27,11 @@ export class MemberService {
   */
   //TODO: check if id exists in person as well
   findOne(memberId: string) {
-    if (!this.members.find((members) => members.team_id == memberId)) {
+    /*if (!this.members.find((members) => members.team_id == memberId)) {
       throw new NotFoundException('this user does not exist');
     }
     return this.members.find((members) => members.team_id == memberId);
+    */
   }
 
   /*

@@ -8,8 +8,8 @@ const configuration: ConnectionOptions = {
   username: env.db.username,
   password: env.db.password,
   database: env.db.database,
-  logging: true,
   synchronize: false,
+  dropSchema: false,
   entities: [__dirname + '/../../**/*.entity.{ts,js}'],
   migrations: [__dirname + '/../migrations/*.{ts,js}'],
   cli: {
@@ -17,4 +17,4 @@ const configuration: ConnectionOptions = {
   },
 };
 
-export default configuration;
+export = configuration;

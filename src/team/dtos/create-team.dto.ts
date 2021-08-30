@@ -3,10 +3,10 @@ export class CreateTeamDto {
   name: string;
   coach: string;
   captain: string | null;
-  status: Status;
+  status: teamStatus;
 }
 
-enum Status {
+export enum teamStatus {
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
 }

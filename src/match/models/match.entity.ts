@@ -2,43 +2,43 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Match {
-  @PrimaryColumn()
+  @PrimaryColumn({ type: 'uuid' })
   private id: string;
   get getId(): string {
     return this.id;
   }
 
-  @Column()
+  @Column({ type: 'character varying', nullable: false })
   private home: string;
   get getHome(): string {
     return this.home;
   }
 
-  @Column()
+  @Column({ type: 'character varying', nullable: false })
   private away: string;
   get getAway(): string {
     return this.away;
   }
 
-  @Column()
+  @Column({ type: 'integer', nullable: false })
   private home_score: number;
   get getHomeScore(): number {
     return this.home_score;
   }
 
-  @Column()
+  @Column({ type: 'integer', nullable: false })
   private away_score: number;
   get getAwayScore(): number {
     return this.away_score;
   }
 
-  @Column({ type: 'timestamp with time zone' })
+  @Column({ type: 'timestamp with time zone', nullable: false })
   private played: string;
   get getPlayed(): string {
     return this.played;
   }
 
-  @Column()
+  @Column({ type: 'character varying', nullable: false })
   private location: string;
   get getLocation(): string {
     return this.location;

@@ -2,38 +2,43 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Team {
-  @PrimaryColumn()
+  @PrimaryColumn({ type: 'uuid' })
   private id: string;
   get getId(): string {
     return this.id;
   }
 
-  @Column()
+  @Column({ type: 'character varying', nullable: false })
   private name: string;
   get getName(): string {
     return this.name;
   }
 
-  @Column()
+  @Column({ type: 'character varying', nullable: false })
   private coach: string;
   get getCoach(): string {
     return this.coach;
   }
 
-  @Column()
+  @Column({ type: 'character varying', nullable: true })
   private captain: string | null;
   get getCaptain(): string | null {
     return this.captain;
   }
 
-  @Column()
-  private status: Status;
-  get getStatus(): Status {
+  @Column({
+    type: 'enum',
+    enum: ['active', 'inactive'],
+    enumName: 'teamEnum',
+    nullable: false,
+  })
+  private status: teamStatus;
+  get getStatus(): teamStatus {
     return this.status;
   }
 }
 
-enum Status {
+export enum teamStatus {
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
 }

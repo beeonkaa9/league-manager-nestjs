@@ -71,6 +71,7 @@ export class initTables1630006279584 implements MigrationInterface {
               'Referee',
               'Linesman',
               'MedicalStaff',
+              'Captain',
               'ScoreKeeper',
               'Goalkeeper',
               'RightFullback',
@@ -115,15 +116,16 @@ export class initTables1630006279584 implements MigrationInterface {
             name: 'name',
             type: 'character varying',
             isNullable: false,
+            isUnique: true,
           },
           {
             name: 'coach',
-            type: 'character varying',
+            type: 'uuid',
             isNullable: false,
           },
           {
             name: 'captain',
-            type: 'character varying',
+            type: 'uuid',
             isNullable: true,
           },
           {
@@ -192,20 +194,20 @@ export class initTables1630006279584 implements MigrationInterface {
     );
 
     await queryRunner.createForeignKey(
-      'team',
+      'match',
       new TableForeignKey({
         columnNames: ['home'],
-        referencedColumnNames: ['id'],
+        referencedColumnNames: ['name'],
         referencedTableName: 'team',
         onDelete: 'CASCADE',
       }),
     );
 
     await queryRunner.createForeignKey(
-      'team',
+      'match',
       new TableForeignKey({
         columnNames: ['away'],
-        referencedColumnNames: ['id'],
+        referencedColumnNames: ['name'],
         referencedTableName: 'team',
         onDelete: 'CASCADE',
       }),
@@ -215,8 +217,8 @@ export class initTables1630006279584 implements MigrationInterface {
       'team',
       new TableForeignKey({
         columnNames: ['coach'],
-        referencedColumnNames: ['team_id'],
-        referencedTableName: 'member',
+        referencedColumnNames: ['id'],
+        referencedTableName: 'person',
         onDelete: 'CASCADE',
       }),
     );
@@ -225,8 +227,8 @@ export class initTables1630006279584 implements MigrationInterface {
       'team',
       new TableForeignKey({
         columnNames: ['captain'],
-        referencedColumnNames: ['team_id'],
-        referencedTableName: 'member',
+        referencedColumnNames: ['id'],
+        referencedTableName: 'person',
         onDelete: 'CASCADE',
       }),
     );

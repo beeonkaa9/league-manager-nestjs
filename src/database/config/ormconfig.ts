@@ -1,4 +1,4 @@
-import { env } from 'env';
+import { env } from '../../env';
 import { ConnectionOptions } from 'typeorm';
 
 const configuration: ConnectionOptions = {
@@ -10,7 +10,7 @@ const configuration: ConnectionOptions = {
   database: env.db.database,
   synchronize: false,
   dropSchema: false,
-  entities: [__dirname + '/../../**/*.entity.{ts,js}'],
+  entities: [__dirname + '/../../**/models/*.entity.{ts,js}'],
   migrations: [__dirname + '/../migrations/*.{ts,js}'],
   cli: {
     migrationsDir: 'src/database/migrations',

@@ -8,19 +8,19 @@ export class Team {
     return this.id;
   }
 
-  @Column({ type: 'character varying', nullable: false })
+  @Column({ type: 'character varying', nullable: false, unique: true })
   private name: string;
   get getName(): string {
     return this.name;
   }
 
-  @Column({ type: 'character varying', nullable: false })
+  @Column({ type: 'uuid', nullable: false })
   private coach: string;
   get getCoach(): string {
     return this.coach;
   }
 
-  @Column({ type: 'character varying', nullable: true })
+  @Column({ type: 'uuid', nullable: true })
   private captain: string | null;
   get getCaptain(): string | null {
     return this.captain;

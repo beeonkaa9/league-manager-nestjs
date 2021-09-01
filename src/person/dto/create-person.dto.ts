@@ -16,6 +16,7 @@ enum Role {
   Referee = 'REFEREE',
   Linesman = 'LINESMAN',
   MedicalStaff = 'MEDICALSTAFF',
+  Captain = 'CAPTAIN',
   ScoreKeeper = 'SCOREKEEPER',
   Goalkeeper = 'GOALKEEPER',
   RightFullback = 'RIGHTFULLBACK',

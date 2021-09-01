@@ -1,4 +1,4 @@
-import { Person } from 'src/person/models/person.entity';
+import { Person } from '../../person/models/person.entity';
 import { ChildEntity, Column } from 'typeorm';
 
 @ChildEntity()

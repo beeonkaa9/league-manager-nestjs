@@ -13,7 +13,7 @@ export class initDb1630001376375 implements MigrationInterface {
       `ALTER ROLE "apiuser" SET search_path TO public, member, person, team, match`,
     );
     await queryRunner.query(
-      'GRANT USAGE ON SCHEMA public, member, person, team, match;',
+      `GRANT USAGE ON SCHEMA public, member, person, team, match TO "apiuser"`,
     );
     await queryRunner.query(
       `ALTER DEFAULT PRIVILEGES IN SCHEMA public, member, person, team, match GRANT ALL ON TABLES TO "apiuser"`,

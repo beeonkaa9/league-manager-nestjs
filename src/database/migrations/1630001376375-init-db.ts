@@ -9,6 +9,7 @@ export class initDb1630001376375 implements MigrationInterface {
     await queryRunner.query(`CREATE SCHEMA IF NOT EXISTS "person"`);
     await queryRunner.query(`CREATE SCHEMA IF NOT EXISTS "team"`);
     await queryRunner.query(`CREATE SCHEMA IF NOT EXISTS "match"`);
+    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
     await queryRunner.query(
       `ALTER ROLE "apiuser" SET search_path TO public, member, person, team, match`,
     );

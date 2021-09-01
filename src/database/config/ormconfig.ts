@@ -17,4 +17,4 @@ const configuration: ConnectionOptions = {
   },
 };
 
-export = configuration;
+export default configuration;

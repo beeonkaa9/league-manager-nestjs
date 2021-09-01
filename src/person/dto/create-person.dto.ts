@@ -10,7 +10,7 @@ export class CreatePersonDto {
   age: number;
 }
 
-enum Role {
+export enum Role {
   Manager = 'MANAGER',
   Coach = 'COACH',
   Referee = 'REFEREE',
@@ -31,7 +31,7 @@ enum Role {
   LeftMidfielder = 'LEFTMIDFIELDER',
 }
 
-enum Status {
+export enum Status {
   active = 'ACTIVE',
   inactive = 'INACTIVE',
   suspended = 'SUSPENDED',

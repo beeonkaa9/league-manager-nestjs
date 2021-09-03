@@ -43,4 +43,22 @@ export class Match {
   get getLocation(): string {
     return this.location;
   }
+
+  constructor(
+    id: string,
+    home: string,
+    away: string,
+    home_score: number,
+    away_score: number,
+    played: string,
+    location: string,
+  ) {
+    this.id = id;
+    this.home = home;
+    this.away = away;
+    this.home_score = home_score;
+    this.away_score = away_score;
+    this.played = played;
+    this.location = location;
+  }
 }

@@ -1,8 +1,35 @@
 import { Column, Entity, PrimaryColumn, TableInheritance } from 'typeorm';
 
-@Entity()
+export enum Role {
+  Manager = 'MANAGER',
+  Coach = 'COACH',
+  Referee = 'REFEREE',
+  Linesman = 'LINESMAN',
+  MedicalStaff = 'MEDICALSTAFF',
+  Captain = 'CAPTAIN',
+  ScoreKeeper = 'SCOREKEEPER',
+  Goalkeeper = 'GOALKEEPER',
+  RightFullback = 'RIGHTFULLBACK',
+  LeftFullback = 'LEFTFULLBACK',
+  CenterBack = 'CENTERBACK',
+  Sweeper = 'SWEEPER',
+  DefendingMidfielder = 'DEFENDINGMIDFIELDER',
+  RightMidfielder = 'RIGHTMIDFIELDER',
+  CentralMidfielder = 'CENTRALMIDFIELDER',
+  Striker = 'STRIKER',
+  AttackingMidfielder = 'ATTACKINGMIDFIELDER',
+  LeftMidfielder = 'LEFTMIDFIELDER',
+}
+
+export enum Status {
+  active = 'ACTIVE',
+  inactive = 'INACTIVE',
+  suspended = 'SUSPENDED',
+}
+
+@Entity({ schema: 'person' })
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
-export class Person {
+export abstract class Person {
   @PrimaryColumn({ type: 'uuid' })
   private id: string;
   get getId(): string {
@@ -85,31 +112,24 @@ export class Person {
   get getAge(): number {
     return this.age;
   }
-}
 
-export enum Role {
-  Manager = 'MANAGER',
-  Coach = 'COACH',
-  Referee = 'REFEREE',
-  Linesman = 'LINESMAN',
-  MedicalStaff = 'MEDICALSTAFF',
-  Captain = 'CAPTAIN',
-  ScoreKeeper = 'SCOREKEEPER',
-  Goalkeeper = 'GOALKEEPER',
-  RightFullback = 'RIGHTFULLBACK',
-  LeftFullback = 'LEFTFULLBACK',
-  CenterBack = 'CENTERBACK',
-  Sweeper = 'SWEEPER',
-  DefendingMidfielder = 'DEFENDINGMIDFIELDER',
-  RightMidfielder = 'RIGHTMIDFIELDER',
-  CentralMidfielder = 'CENTRALMIDFIELDER',
-  Striker = 'STRIKER',
-  AttackingMidfielder = 'ATTACKINGMIDFIELDER',
-  LeftMidfielder = 'LEFTMIDFIELDER',
-}
-
-export enum Status {
-  active = 'ACTIVE',
-  inactive = 'INACTIVE',
-  suspended = 'SUSPENDED',
+  constructor(
+    id: string,
+    name: string,
+    last_name: string,
+    phone: number,
+    email: string,
+    dob: string,
+    role: Role,
+    status: Status,
+  ) {
+    this.id = id;
+    this.name = name;
+    this.last_name = last_name;
+    this.phone = phone;
+    this.email = email;
+    this.dob = dob;
+    this.role = role;
+    this.status = status;
+  }
 }

@@ -1,5 +1,9 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
+export enum teamStatus {
+  Active = 'ACTIVE',
+  Inactive = 'INACTIVE',
+}
 @Entity()
 export class Team {
   @PrimaryColumn({ type: 'uuid' })
@@ -36,9 +40,18 @@ export class Team {
   get getStatus(): teamStatus {
     return this.status;
   }
-}
 
-export enum teamStatus {
-  Active = 'ACTIVE',
-  Inactive = 'INACTIVE',
+  constructor(
+    id: string,
+    name: string,
+    coach: string,
+    status: teamStatus,
+    captain?: string,
+  ) {
+    this.id = id;
+    this.name = name;
+    this.coach = coach;
+    this.status = status;
+    this.captain = captain;
+  }
 }

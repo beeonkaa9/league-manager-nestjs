@@ -3,7 +3,7 @@ import { Member } from './models/member.entity';
 
 @Injectable()
 export class MemberService {
-  private readonly members: Member[] = [];
+  //private readonly members: Member[] = [];
 
   /*
     service function for POST /member:

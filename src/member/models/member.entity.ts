@@ -1,5 +1,10 @@
 import { Person } from '../../person/models/person.entity';
 import { ChildEntity, Column } from 'typeorm';
+import { Status, Role } from '../../person/models/person.entity';
+
+export interface Stats {
+  shots_on_goal: number;
+}
 
 @ChildEntity()
 export class Member extends Person {
@@ -14,8 +19,21 @@ export class Member extends Person {
   get getStats(): Stats {
     return this.stats;
   }
-}
 
-export interface Stats {
-  shots_on_goal: number;
+  constructor(
+    stats: Stats,
+    id: string,
+    name: string,
+    last_name: string,
+    phone: number,
+    email: string,
+    dob: string,
+    role: Role,
+    status: Status,
+    team_id?: string,
+  ) {
+    super(id, name, last_name, phone, email, dob, role, status);
+    this.team_id = team_id;
+    this.stats = stats;
+  }
 }

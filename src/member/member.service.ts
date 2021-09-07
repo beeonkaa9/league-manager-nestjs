@@ -9,17 +9,7 @@ export class MemberService {
     service function for POST /member:
     Create a member of a team along with an entry in the person table
   */
-  create(member: Member) {
-    this.members.push(member);
-  }
-
-  /*
-  service for POST /member/{id}/payment: 
-  player made a payment towards the membership
-  */
-  createPay(id: string, payment: number) {
-    //get balance from id, then add the payment to it
-  }
+  create(member: Member) {}
 
   /*
   GET /member/{id}:

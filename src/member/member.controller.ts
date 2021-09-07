@@ -20,15 +20,6 @@ export class MemberController {
   }
 
   /*
-  POST /member/{id}/payment: 
-  player made a payment towards the membership
-  */
-  @Post(':id/payment')
-  createPay(@Param('id') id: string, @Body() memberpay: number) {
-    return 'makes a payment';
-  }
-
-  /*
   GET /member/{id}:
   this should return member data and person data
   */

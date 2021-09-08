@@ -51,7 +51,7 @@ export class Team {
     this.id = id;
     this.name = name;
     this.coach = coach;
-    this.status = status;
     this.captain = captain;
+    this.status = status;
   }
 }

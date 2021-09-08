@@ -29,7 +29,7 @@ export enum Status {
 
 @Entity({ schema: 'person' })
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
-export abstract class Person {
+export class Person {
   @PrimaryColumn({ type: 'uuid' })
   private id: string;
   get getId(): string {
@@ -92,7 +92,7 @@ export abstract class Person {
     nullable: false,
   })
   private role: Role;
-  get getRole(): string {
+  get getRole(): Role {
     return this.role;
   }
 
@@ -122,6 +122,7 @@ export abstract class Person {
     dob: string,
     role: Role,
     status: Status,
+    age: number,
   ) {
     this.id = id;
     this.name = name;
@@ -131,5 +132,6 @@ export abstract class Person {
     this.dob = dob;
     this.role = role;
     this.status = status;
+    this.age = age;
   }
 }

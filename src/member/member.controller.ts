@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreateMemberDto } from './dtos/create-member.dto';
 
 @Controller('member')
 export class MemberController {
@@ -15,7 +16,7 @@ export class MemberController {
     Create a member of a team along with an entry in the person table
   */
   @Post()
-  create(@Body() stringmember: string) {
+  createMember(@Body() createMemberDto: CreateMemberDto) {
     return 'creates a member';
   }
 
@@ -24,7 +25,7 @@ export class MemberController {
   this should return member data and person data
   */
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findMemberById(@Param('id') id: string) {
     return 'returns a member';
   }
 
@@ -42,7 +43,7 @@ export class MemberController {
   update a member via id
   */
   @Patch(':id')
-  updateById(@Param('id') id: string, @Body() body: string) {
+  updateMemberById(@Param('id') id: string, @Body() body: string) {
     return 'this updates the id';
   }
 
@@ -51,7 +52,7 @@ export class MemberController {
   update a member's status
   */
   @Patch(':id/status')
-  updateStatus(@Param('id') id: string, @Body() body: string) {
+  updateMemberStatus(@Param('id') id: string, @Body() body: string) {
     return 'this updates the member status';
   }
 
@@ -60,7 +61,7 @@ export class MemberController {
   delete a member
   */
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  deleteMember(@Param('id') id: string) {
     return 'this deletes an id';
   }
 }

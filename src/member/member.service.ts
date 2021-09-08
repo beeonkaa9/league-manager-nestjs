@@ -1,5 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Member } from './models/member.entity';
+import { Injectable } from '@nestjs/common';
+import { CreateMemberDto } from './dtos/create-member.dto';
 
 @Injectable()
 export class MemberService {
@@ -9,20 +9,13 @@ export class MemberService {
     service function for POST /member:
     Create a member of a team along with an entry in the person table
   */
-  create(member: Member) {}
+  createMember(createMemberDto: CreateMemberDto) {}
 
   /*
   GET /member/{id}:
   this should return member data and person data
   */
-  //TODO: check if id exists in person as well
-  findOne(memberId: string) {
-    /*if (!this.members.find((members) => members.team_id == memberId)) {
-      throw new NotFoundException('this user does not exist');
-    }
-    return this.members.find((members) => members.team_id == memberId);
-    */
-  }
+  findMemberById(id: string) {}
 
   /*
   GET /member/free-agent
@@ -36,7 +29,7 @@ export class MemberService {
   PATCH /member/{id}
   update a member via id
   */
-  updateById(id: string, body: string) {
+  updateMemberById(id: string, body: string) {
     //findOne, then update the body
   }
 
@@ -44,7 +37,7 @@ export class MemberService {
   PATCH /member/{id}/status
   update a member's status
   */
-  updateStatus(id: string, body: string) {
+  updateMemberStatus(id: string, body: string) {
     //update status
   }
 
@@ -52,7 +45,7 @@ export class MemberService {
   DELETE /member/{id}
   delete a member
   */
-  delete(id: string) {
+  deleteMember(id: string) {
     //delete from member and from person tables
   }
 }

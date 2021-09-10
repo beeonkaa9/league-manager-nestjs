@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Member } from 'src/member/models/member.entity';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 
 export enum teamStatus {
   Active = 'ACTIVE',
@@ -40,6 +41,9 @@ export class Team {
   get getStatus(): teamStatus {
     return this.status;
   }
+
+  @OneToMany(() => Member, (member) => member.team)
+  members: Member[];
 
   constructor(
     id: string,

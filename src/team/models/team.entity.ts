@@ -1,5 +1,5 @@
-import { Member } from 'src/member/models/member.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
+import { Member } from '../../member/models/member.entity';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 
 export enum teamStatus {
   Active = 'ACTIVE',

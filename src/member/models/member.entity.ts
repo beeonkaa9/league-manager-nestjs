@@ -1,7 +1,7 @@
 import { Person } from '../../person/models/person.entity';
 import { ChildEntity, Column, ManyToOne } from 'typeorm';
 import { Status, Role } from '../../person/models/person.entity';
-import { Team } from 'src/team/models/team.entity';
+import { Team } from '../../team/models/team.entity';
 
 export interface Stats {
   shots_on_goal: number;

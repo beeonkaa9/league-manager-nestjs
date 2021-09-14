@@ -11,23 +11,6 @@ export class initTables1630006279584 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'member',
-        columns: [
-          {
-            name: 'team_id',
-            type: 'uuid',
-            isNullable: true,
-          },
-          {
-            name: 'stats',
-            type: 'json',
-          },
-        ],
-      }),
-    );
-
-    await queryRunner.createTable(
-      new Table({
         name: 'person',
         columns: [
           {
@@ -99,6 +82,15 @@ export class initTables1630006279584 implements MigrationInterface {
             name: 'age',
             type: 'integer',
             isNullable: false,
+          },
+          {
+            name: 'team_id',
+            type: 'uuid',
+            isNullable: true,
+          },
+          {
+            name: 'stats',
+            type: 'json',
           },
         ],
       }),
@@ -184,7 +176,7 @@ export class initTables1630006279584 implements MigrationInterface {
 
     //create all the foreign keys for the tables
     await queryRunner.createForeignKey(
-      'member',
+      'person',
       new TableForeignKey({
         columnNames: ['team_id'],
         referencedColumnNames: ['id'],

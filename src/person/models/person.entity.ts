@@ -27,7 +27,7 @@ export enum Status {
   suspended = 'SUSPENDED',
 }
 
-@Entity({ schema: 'person' })
+@Entity()
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export class Person {
   @PrimaryColumn({ type: 'uuid' })

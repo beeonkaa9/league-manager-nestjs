@@ -92,6 +92,10 @@ export class initTables1630006279584 implements MigrationInterface {
             name: 'stats',
             type: 'json',
           },
+          {
+            name: 'type',
+            type: 'varchar',
+          },
         ],
       }),
     );

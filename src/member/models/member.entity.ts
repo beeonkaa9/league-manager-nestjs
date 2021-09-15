@@ -1,5 +1,5 @@
 import { Person } from '../../person/models/person.entity';
-import { ChildEntity, Column, ManyToOne } from 'typeorm';
+import { ChildEntity, Column, JoinColumn, ManyToOne } from 'typeorm';
 import { Status, Role } from '../../person/models/person.entity';
 import { Team } from '../../team/models/team.entity';
 
@@ -9,7 +9,7 @@ export interface Stats {
 
 @ChildEntity()
 export class Member extends Person {
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ name: 'team_id', type: 'uuid', nullable: true })
   private team_id: string | null;
   get getTeamId(): string | null {
     return this.team_id;
@@ -22,6 +22,7 @@ export class Member extends Person {
   }
 
   @ManyToOne(() => Team, (team) => team.members)
+  @JoinColumn({ name: 'team_id', referencedColumnName: 'id' })
   team: Team;
 
   constructor(

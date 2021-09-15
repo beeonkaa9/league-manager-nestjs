@@ -227,7 +227,29 @@ export class initTables1630006279584 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('member');
+    const personTable = await queryRunner.getTable('person');
+    const matchTable = await queryRunner.getTable('match');
+    const teamTable = await queryRunner.getTable('team');
+    const personForeignKey = personTable.foreignKeys.find(
+      (fk) => fk.columnNames.indexOf('team_id') !== -1,
+    );
+    const matchForeignKey1 = matchTable.foreignKeys.find(
+      (fk) => fk.columnNames.indexOf('home') !== -1,
+    );
+    const matchForeignKey2 = matchTable.foreignKeys.find(
+      (fk) => fk.columnNames.indexOf('away') !== -1,
+    );
+    const teamForeignKey1 = teamTable.foreignKeys.find(
+      (fk) => fk.columnNames.indexOf('coach') !== -1,
+    );
+    const teamForeignKey2 = teamTable.foreignKeys.find(
+      (fk) => fk.columnNames.indexOf('captain') !== -1,
+    );
+    await queryRunner.dropForeignKey('person', personForeignKey);
+    await queryRunner.dropForeignKey('match', matchForeignKey1);
+    await queryRunner.dropForeignKey('match', matchForeignKey2);
+    await queryRunner.dropForeignKey('team', teamForeignKey1);
+    await queryRunner.dropForeignKey('team', teamForeignKey2);
     await queryRunner.dropTable('person');
     await queryRunner.dropTable('team');
     await queryRunner.dropTable('match');

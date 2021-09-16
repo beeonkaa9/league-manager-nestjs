@@ -15,7 +15,7 @@ export class initTables1630006279584 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'text',
             isPrimary: true,
           },
           {
@@ -85,7 +85,7 @@ export class initTables1630006279584 implements MigrationInterface {
           },
           {
             name: 'team_id',
-            type: 'uuid',
+            type: 'text',
             isNullable: true,
           },
           {
@@ -105,7 +105,7 @@ export class initTables1630006279584 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'text',
             isPrimary: true,
           },
           {
@@ -116,12 +116,12 @@ export class initTables1630006279584 implements MigrationInterface {
           },
           {
             name: 'coach',
-            type: 'uuid',
+            type: 'text',
             isNullable: false,
           },
           {
             name: 'captain',
-            type: 'uuid',
+            type: 'text',
             isNullable: true,
           },
           {
@@ -185,7 +185,7 @@ export class initTables1630006279584 implements MigrationInterface {
         columnNames: ['team_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'team',
-        onDelete: 'CASCADE',
+        onDelete: 'SET NULL',
       }),
     );
 

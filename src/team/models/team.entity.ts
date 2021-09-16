@@ -7,7 +7,7 @@ export enum teamStatus {
 }
 @Entity()
 export class Team {
-  @PrimaryColumn({ type: 'uuid' })
+  @PrimaryColumn({ type: 'text' })
   private id: string;
   get getId(): string {
     return this.id;
@@ -19,13 +19,13 @@ export class Team {
     return this.name;
   }
 
-  @Column({ type: 'uuid', nullable: false })
+  @Column({ type: 'text', nullable: false })
   private coach: string;
   get getCoach(): string {
     return this.coach;
   }
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'text', nullable: true })
   private captain: string | null;
   get getCaptain(): string | null {
     return this.captain;

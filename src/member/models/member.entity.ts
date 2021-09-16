@@ -9,7 +9,7 @@ export interface Stats {
 
 @ChildEntity()
 export class Member extends Person {
-  @Column({ name: 'team_id', type: 'uuid', nullable: true })
+  @Column({ name: 'team_id', type: 'text', nullable: true })
   private team_id: string | null;
   get getTeamId(): string | null {
     return this.team_id;

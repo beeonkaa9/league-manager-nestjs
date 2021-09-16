@@ -7,17 +7,24 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { Person } from 'src/person/models/person.entity';
 import { CreateMemberDto } from './dtos/create-member.dto';
+import { UpdateMemberDto } from './dtos/update-member.dto';
+import { MemberService } from './member.service';
+import { Member } from './models/member.entity';
 
 @Controller('member')
 export class MemberController {
+  constructor(private memberService: MemberService) {}
   /*
     POST /member:
     Create a member of a team along with an entry in the person table
   */
   @Post()
-  createMember(@Body() createMemberDto: CreateMemberDto) {
-    return 'creates a member';
+  async createMember(
+    @Body() createMemberDto: CreateMemberDto,
+  ): Promise<Member | Error> {
+    return await this.memberService.createMember(createMemberDto);
   }
 
   /*
@@ -25,35 +32,41 @@ export class MemberController {
   this should return member data and person data
   */
   @Get(':id')
-  findMemberById(@Param('id') id: string) {
-    return 'returns a member';
+  async findMemberById(@Param('id') id: string): Promise<Member | Error> {
+    return await this.memberService.findMemberById(id);
   }
 
   /*
   GET /member/free-agent
   return all players without a team
-  */
+  
   @Get('free-agent')
-  findFreeAgents() {
-    return 'returns all players without a team';
+  async findFreeAgents(): Promise<Person[]> {
+    return await this.memberService.findFreeAgents();
   }
 
   /*
   PATCH /member/{id}
   update a member via id
-  */
+  
   @Patch(':id')
-  updateMemberById(@Param('id') id: string, @Body() body: string) {
-    return 'this updates the id';
+  async updateMemberById(
+    @Param('id') id: string,
+    @Body() updateMemberDto: UpdateMemberDto,
+  ): Promise<Member> {
+    return await this.memberService.updateMemberById(id, updateMemberDto);
   }
 
   /*
   PATCH /member/{id}/status
   update a member's status
-  */
+  
   @Patch(':id/status')
-  updateMemberStatus(@Param('id') id: string, @Body() body: string) {
-    return 'this updates the member status';
+  async updateMemberStatus(
+    @Param('id') id: string,
+    @Body() updateMemberDto: UpdateMemberDto,
+  ): Promise<Member> {
+    return await this.memberService.updateMemberStatus(id, updateMemberDto);
   }
 
   /*
@@ -61,7 +74,7 @@ export class MemberController {
   delete a member
   */
   @Delete(':id')
-  deleteMember(@Param('id') id: string) {
-    return 'this deletes an id';
+  async deleteMember(@Param('id') id: string): Promise<Member | Error> {
+    return await this.memberService.deleteMember(id);
   }
 }

@@ -1,51 +1,92 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { resolve } from 'path/posix';
+import { Person } from 'src/person/models/person.entity';
 import { CreateMemberDto } from './dtos/create-member.dto';
+import { UpdateMemberDto } from './dtos/update-member.dto';
+import { MemberMapper } from './mappers/member.map';
+import { Member } from './models/member.entity';
+import { MemberRepository } from './repositories/member.repository';
 
 @Injectable()
 export class MemberService {
-  //private readonly members: Member[] = [];
+  constructor(
+    @InjectRepository(MemberRepository)
+    private memberRepository: MemberRepository,
+  ) {}
 
   /*
     service function for POST /member:
     Create a member of a team along with an entry in the person table
   */
-  createMember(createMemberDto: CreateMemberDto) {}
+  async createMember(
+    createMemberDto: CreateMemberDto,
+  ): Promise<Member | Error> {
+    try {
+      const member = MemberMapper.toDomain(createMemberDto);
+
+      return await this.memberRepository.createMember(member);
+    } catch (e) {
+      console.log(e);
+      return new Error('something went wrong; user could not be created');
+    }
+  }
 
   /*
   GET /member/{id}:
   this should return member data and person data
   */
-  findMemberById(id: string) {}
+  async findMemberById(id: string): Promise<Member | Error> {
+    try {
+      return await this.memberRepository.findMemberById(id);
+    } catch (e) {
+      console.log(e);
+      return new Error('was not able to search for a member');
+    }
+  }
 
   /*
   GET /member/free-agent
   return all players without a team
-  */
-  findFreeAgents() {
-    //return free agent
+  
+  async findFreeAgents(): Promise<Person[]> {
+    return await this.memberRepository.findFreeAgents();
   }
 
   /*
   PATCH /member/{id}
   update a member via id
-  */
-  updateMemberById(id: string, body: string) {
-    //findOne, then update the body
+  
+  async updateMemberById(
+    id: string,
+    updateMemberDto: UpdateMemberDto,
+  ): Promise<Member> {
+    return await this.memberRepository.updateMemberById(id, updateMemberDto);
   }
 
   /*
   PATCH /member/{id}/status
   update a member's status
-  */
-  updateMemberStatus(id: string, body: string) {
-    //update status
+  
+  async updateMemberStatus(
+    id: string,
+    updateMemberDto: UpdateMemberDto,
+  ): Promise<Member> {
+    return await this.memberRepository.updateMemberById(id, updateMemberDto);
   }
+  */
 
   /*
   DELETE /member/{id}
   delete a member
   */
-  deleteMember(id: string) {
-    //delete from member and from person tables
+  async deleteMember(id: string): Promise<Member | Error> {
+    try {
+      const member = await this.memberRepository.findMemberById(id);
+      return await this.memberRepository.deleteMember(member);
+    } catch (e) {
+      console.log(e);
+      return new Error('user was not able to be deleted');
+    }
   }
 }

@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { resolve } from 'path/posix';
 import { Person } from 'src/person/models/person.entity';
@@ -61,12 +66,30 @@ export class MemberService {
   /*
   PATCH /member/{id}
   update a member via id
-  
+  */
   async updateMemberById(
     id: string,
     updateMemberDto: UpdateMemberDto,
-  ): Promise<Member> {
-    return await this.memberRepository.updateMemberById(id, updateMemberDto);
+  ): Promise<Member | Error> {
+    const member: Member = await this.memberRepository.findMemberById(id);
+    if (updateMemberDto.id != id && updateMemberDto.id != null) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'changing the id is not allowed',
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    try {
+      return await this.memberRepository.updateMemberById(
+        member,
+        updateMemberDto,
+      );
+    } catch (e) {
+      console.log(e);
+      return new Error('an error occurred while updating the member');
+    }
   }
 
   /*

@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
   Param,
   Patch,
   Post,
@@ -48,12 +49,12 @@ export class MemberController {
   /*
   PATCH /member/{id}
   update a member via id
-  
+  */
   @Patch(':id')
   async updateMemberById(
     @Param('id') id: string,
     @Body() updateMemberDto: UpdateMemberDto,
-  ): Promise<Member> {
+  ): Promise<Member | Error> {
     return await this.memberService.updateMemberById(id, updateMemberDto);
   }
 

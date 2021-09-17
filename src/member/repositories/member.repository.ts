@@ -1,11 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Person } from 'src/person/models/person.entity';
-import {
-  EntityRepository,
-  getConnection,
-  getManager,
-  Repository,
-} from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import { Query } from 'typeorm/driver/Query';
 import { UpdateMemberDto } from '../dtos/update-member.dto';
 import { Member } from '../models/member.entity';
@@ -38,7 +32,6 @@ export class MemberRepository
   }
 
   public async findMemberById(memberId: string): Promise<Member> {
-    console.log('find member');
     return await this.findOne(memberId);
   }
 
@@ -51,17 +44,14 @@ export class MemberRepository
       .getMany();
   }
 
-  /*
   public async updateMemberById(
-    id: string,
+    member: Member,
     updateMemberDto: UpdateMemberDto,
   ): Promise<Member> {
-    let member: Member = await this.findMemberById(id);
-
-    return await this.save(member);
+    return await this.save({ ...member, ...updateMemberDto });
   }
 
-  
+  /*
   public async updateMemberStatus(
     id: string,
     updateMemberDto: UpdateMemberDto,

@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { Person } from 'src/person/models/person.entity';
 import { CreateMemberDto } from './dtos/create-member.dto';
@@ -28,21 +29,20 @@ export class MemberController {
   }
 
   /*
+  GET /member/free-agent
+  return all players without a team
+  */
+  @Get('/free-agent')
+  async findFreeAgents(): Promise<Member[] | Error> {
+    return await this.memberService.findFreeAgents();
+  }
+  /*
   GET /member/{id}:
   this should return member data and person data
   */
   @Get(':id')
   async findMemberById(@Param('id') id: string): Promise<Member | Error> {
     return await this.memberService.findMemberById(id);
-  }
-
-  /*
-  GET /member/free-agent
-  return all players without a team
-  
-  @Get('free-agent')
-  async findFreeAgents(): Promise<Person[]> {
-    return await this.memberService.findFreeAgents();
   }
 
   /*

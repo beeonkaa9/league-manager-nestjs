@@ -1,13 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { Person } from 'src/person/models/person.entity';
-import { EntityRepository, Repository } from 'typeorm';
+import {
+  EntityRepository,
+  getConnection,
+  getManager,
+  Repository,
+} from 'typeorm';
+import { Query } from 'typeorm/driver/Query';
 import { UpdateMemberDto } from '../dtos/update-member.dto';
 import { Member } from '../models/member.entity';
 
 export interface IMemberRepository {
   createMember(member: Member): Promise<Member>;
   findMemberById(id: string): Promise<Member>;
-  /*findFreeAgents(): Promise<Person[]>;
+  findFreeAgents(query: Query): Promise<Member[]>;
+  /*
   updateMemberById(
     id: string,
     updateMemberDto: UpdateMemberDto,
@@ -31,24 +38,20 @@ export class MemberRepository
   }
 
   public async findMemberById(memberId: string): Promise<Member> {
+    console.log('find member');
     return await this.findOne(memberId);
   }
 
-  /*
-  public async findFreeAgents(): Promise<Person[]> {
+  public async findFreeAgents(): Promise<Member[]> {
     //if team_id = null, return members
-
-    const freeAgentQuery = await this.createQueryBuilder('member')
-      .select('person')
-      .from(Person, 'person')
-      .where('person.id = :member')
-      .andWhere('member.team_id is null')
+    return await this.createQueryBuilder()
+      .select('member')
+      .from(Member, 'member')
+      .where('member.team_id is null')
       .getMany();
-
-    return freeAgentQuery;
   }
-  
 
+  /*
   public async updateMemberById(
     id: string,
     updateMemberDto: UpdateMemberDto,

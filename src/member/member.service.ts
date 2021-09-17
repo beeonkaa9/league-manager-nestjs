@@ -33,6 +33,19 @@ export class MemberService {
   }
 
   /*
+  GET /member/free-agent
+  return all players without a team
+  */
+  async findFreeAgents(): Promise<Member[] | Error> {
+    try {
+      return await this.memberRepository.findFreeAgents();
+    } catch (e) {
+      console.log(e);
+      return new Error('an error occured while searching for all free agents');
+    }
+  }
+
+  /*
   GET /member/{id}:
   this should return member data and person data
   */
@@ -41,16 +54,8 @@ export class MemberService {
       return await this.memberRepository.findMemberById(id);
     } catch (e) {
       console.log(e);
-      return new Error('was not able to search for a member');
+      return new Error('an error occurred while searching for a member');
     }
-  }
-
-  /*
-  GET /member/free-agent
-  return all players without a team
-  
-  async findFreeAgents(): Promise<Person[]> {
-    return await this.memberRepository.findFreeAgents();
   }
 
   /*
@@ -74,7 +79,6 @@ export class MemberService {
   ): Promise<Member> {
     return await this.memberRepository.updateMemberById(id, updateMemberDto);
   }
-  */
 
   /*
   DELETE /member/{id}

@@ -1,13 +1,7 @@
-import {
-  ConflictException,
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { resolve } from 'path/posix';
-import { Person } from 'src/person/models/person.entity';
 import { CreateMemberDto } from './dtos/create-member.dto';
+import { UpdateMemberStatusDto } from './dtos/update-member-status.dto';
 import { UpdateMemberDto } from './dtos/update-member.dto';
 import { MemberMapper } from './mappers/member.map';
 import { Member } from './models/member.entity';
@@ -72,15 +66,7 @@ export class MemberService {
     updateMemberDto: UpdateMemberDto,
   ): Promise<Member | Error> {
     const member: Member = await this.memberRepository.findMemberById(id);
-    if (updateMemberDto.id != id && updateMemberDto.id != null) {
-      throw new HttpException(
-        {
-          status: HttpStatus.FORBIDDEN,
-          error: 'changing the id is not allowed',
-        },
-        HttpStatus.FORBIDDEN,
-      );
-    }
+
     try {
       return await this.memberRepository.updateMemberById(
         member,
@@ -98,10 +84,14 @@ export class MemberService {
   
   async updateMemberStatus(
     id: string,
-    updateMemberDto: UpdateMemberDto,
+    updateMemberStatusDto: UpdateMemberStatusDto,
   ): Promise<Member> {
-    return await this.memberRepository.updateMemberById(id, updateMemberDto);
+    return await this.memberRepository.updateMemberStatus(
+      id,
+      updateMemberStatusDto,
+    );
   }
+  */
 
   /*
   DELETE /member/{id}

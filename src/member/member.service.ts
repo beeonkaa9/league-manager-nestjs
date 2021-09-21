@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import e from 'express';
 import { CreateMemberDto } from './dtos/create-member.dto';
 import { UpdateMemberStatusDto } from './dtos/update-member-status.dto';
 import { UpdateMemberDto } from './dtos/update-member.dto';
@@ -27,7 +28,7 @@ export class MemberService {
       return await this.memberRepository.createMember(member);
     } catch (e) {
       console.log(e);
-      return new Error('something went wrong; user could not be created');
+      return e;
     }
   }
 
@@ -40,7 +41,7 @@ export class MemberService {
       return await this.memberRepository.findFreeAgents();
     } catch (e) {
       console.log(e);
-      return new Error('an error occured while searching for all free agents');
+      return e;
     }
   }
 
@@ -53,7 +54,7 @@ export class MemberService {
       return await this.memberRepository.findMemberById(id);
     } catch (e) {
       console.log(e);
-      return new Error('an error occurred while searching for a member');
+      return e;
     }
   }
 
@@ -74,7 +75,7 @@ export class MemberService {
       );
     } catch (e) {
       console.log(e);
-      return new Error('an error occurred while updating the member');
+      return e;
     }
   }
 
@@ -86,11 +87,16 @@ export class MemberService {
     id: string,
     updateMemberStatusDto: UpdateMemberStatusDto,
   ): Promise<Member> {
-    const member: Member = await this.memberRepository.findMemberById(id);
-    return await this.memberRepository.updateMemberStatus(
-      member,
-      updateMemberStatusDto,
-    );
+    try {
+      const member: Member = await this.memberRepository.findMemberById(id);
+      return await this.memberRepository.updateMemberStatus(
+        member,
+        updateMemberStatusDto,
+      );
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   }
 
   /*
@@ -103,7 +109,7 @@ export class MemberService {
       return await this.memberRepository.deleteMember(member);
     } catch (e) {
       console.log(e);
-      return new Error('user was not able to be deleted');
+      return e;
     }
   }
 }

@@ -13,13 +13,11 @@ export interface IMemberRepository {
     member: Member,
     updateMemberDto: UpdateMemberDto,
   ): Promise<Member>;
-  /*
   updateMemberStatus(
-    id: string,
+    member: Member,
     updateMemberStatusDto: UpdateMemberStatusDto,
   ): Promise<Member>;
   deleteMember(member: Member): Promise<Member>;
-  */
 }
 
 @Injectable()
@@ -56,13 +54,12 @@ export class MemberRepository
     return await this.save({ ...member, ...updateMemberDto });
   }
 
-  // public async updateMemberStatus(
-  //   id: string,
-  //   updateMemberStatusDto: UpdateMemberStatusDto,
-  // ): Promise<Member> {
-  //   access status to change it; query?
-  //   return await this.save({})
-  // }
+  public async updateMemberStatus(
+    member: Member,
+    updateMemberStatusDto: UpdateMemberStatusDto,
+  ): Promise<Member> {
+    return await this.save({ ...member, ...updateMemberStatusDto });
+  }
 
   public async deleteMember(member: Member): Promise<Member> {
     return await this.remove(member);

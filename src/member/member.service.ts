@@ -81,17 +81,17 @@ export class MemberService {
   /*
   PATCH /member/{id}/status
   update a member's status
-  
+  */
   async updateMemberStatus(
     id: string,
     updateMemberStatusDto: UpdateMemberStatusDto,
   ): Promise<Member> {
+    const member: Member = await this.memberRepository.findMemberById(id);
     return await this.memberRepository.updateMemberStatus(
-      id,
+      member,
       updateMemberStatusDto,
     );
   }
-  */
 
   /*
   DELETE /member/{id}

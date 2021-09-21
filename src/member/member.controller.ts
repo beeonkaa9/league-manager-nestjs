@@ -3,14 +3,12 @@ import {
   Controller,
   Delete,
   Get,
-  HttpException,
   Param,
   Patch,
   Post,
-  Query,
 } from '@nestjs/common';
-import { Person } from 'src/person/models/person.entity';
 import { CreateMemberDto } from './dtos/create-member.dto';
+import { UpdateMemberStatusDto } from './dtos/update-member-status.dto';
 import { UpdateMemberDto } from './dtos/update-member.dto';
 import { MemberService } from './member.service';
 import { Member } from './models/member.entity';
@@ -61,13 +59,16 @@ export class MemberController {
   /*
   PATCH /member/{id}/status
   update a member's status
-  
+  */
   @Patch(':id/status')
   async updateMemberStatus(
     @Param('id') id: string,
-    @Body() updateMemberDto: UpdateMemberDto,
+    @Body() updateMemberStatusDto: UpdateMemberStatusDto,
   ): Promise<Member> {
-    return await this.memberService.updateMemberStatus(id, updateMemberDto);
+    return await this.memberService.updateMemberStatus(
+      id,
+      updateMemberStatusDto,
+    );
   }
 
   /*

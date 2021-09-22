@@ -11,6 +11,7 @@ import {
 import { ApiQuery } from '@nestjs/swagger';
 import { Role, Status } from 'src/person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
+import { UpdateTeamDto } from './dtos/update-team.dto';
 import { Team } from './models/team.entity';
 import { TeamService } from './team.service';
 
@@ -79,10 +80,13 @@ export class TeamController {
   /*
     PATCH /team/{id}
     updates a team
-  
+  */
   @Patch(':id')
-  async updateTeamId(@Param('id') id: string, @Body() body: string) {
-    return 'posts an update for team';
+  async updateTeamById(
+    @Param('id') id: string,
+    @Body() updateTeamDto: UpdateTeamDto,
+  ) {
+    return await this.teamService.updateTeamById(id, updateTeamDto);
   }
 
   /*

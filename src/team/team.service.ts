@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Member } from 'src/member/models/member.entity';
 import { Role, Status } from 'src/person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
+import { UpdateTeamDto } from './dtos/update-team.dto';
 import { TeamMapper } from './mappers/team.map';
 import { Team } from './models/team.entity';
 import { TeamRepository } from './repositories/team.repository';
@@ -76,9 +77,18 @@ export class TeamService {
   /*
     PATCH /team/{id}
     updates a team
-  
-  async updateTeamId(id: string, body: string) {
-    return 'posts an update for team';
+  */
+  async updateTeamById(
+    id: string,
+    updateTeamDto: UpdateTeamDto,
+  ): Promise<Team> {
+    const team: Team = await this.teamRepository.findTeamById(id);
+
+    try {
+      return await this.teamRepository.updateTeamById(team, updateTeamDto);
+    } catch (e) {
+      return e;
+    }
   }
 
   /*

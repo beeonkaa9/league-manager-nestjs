@@ -1,4 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Member } from 'src/member/models/member.entity';
+import { MemberRepository } from 'src/member/repositories/member.repository';
+import { Role, Status } from 'src/person/models/person.entity';
 import { EntityRepository, Repository } from 'typeorm';
 import { Team } from '../models/team.entity';
 
@@ -7,7 +11,7 @@ export interface ITeamRepository {
   findTeamById(id: string): Promise<Team>;
   //   //any will most likely change; any for now since I don't think it can be Team[]
   //   getTeamMatches(id: string): Promise<any>;
-  //   getTeamMembers(id: string): Promise<Team[]>;
+  getTeamMembers(id: string, status?: Status, role?: Role): Promise<Member[]>;
   //   //will most likely take in Team and UpdateTeamDto; will return Promise<Team>
   //   updateTeamById();
   //   //will most likely take in UpdateTeamStatusDto; will return Promise<Team>
@@ -21,6 +25,13 @@ export class TeamRepository
   extends Repository<Team>
   implements ITeamRepository
 {
+  constructor(
+    @InjectRepository(MemberRepository)
+    private memberRepository: MemberRepository,
+  ) {
+    super();
+  }
+
   public async createTeam(team: Team): Promise<Team> {
     return await this.save(team);
   }
@@ -31,5 +42,42 @@ export class TeamRepository
     } catch {
       throw new NotFoundException('this id does not exist in the teams table');
     }
+  }
+
+  public async getTeamMembers(
+    id: string,
+    status?: Status,
+    role?: Role,
+  ): Promise<Member[]> {
+    let query: any = this.memberRepository
+      .createQueryBuilder()
+      .select('member')
+      .from(Member, 'member')
+      .where('member.team_id = :teamid', { teamid: id });
+
+    if (status != null) {
+      query = query.andWhere('member.status = :status', { status: status });
+    }
+    if (status == null && role != null) {
+      query = query.andWhere('member.role = :role', { role: role });
+    }
+    if (status != null && role != null) {
+      query = query.andWhere('member.status = :status', { status: status });
+      query = query.andWhere('member.role = :role', { role: role });
+    }
+
+    return await query.getMany();
+
+    //return findMembersOnly;
+
+    // const findMembersOnly = await this.memberRepository
+    //   .createQueryBuilder('member')
+    //   .from(Member, 'member')
+    //   .where('member.team_id = :teamid', { teamid: id })
+    //   .andWhere('member.status = :status', { status: status })
+    //   .andWhere('member.role = :role', { role: role })
+    //   .getMany();
+
+    // return findMembersOnly;
   }
 }

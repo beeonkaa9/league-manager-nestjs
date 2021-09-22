@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Member } from 'src/member/models/member.entity';
+import { Role, Status } from 'src/person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
 import { TeamMapper } from './mappers/team.map';
 import { Team } from './models/team.entity';
@@ -29,7 +31,7 @@ export class TeamService {
     GET /team/{id}
     returns a team
   */
-  async findTeamById(id: string) {
+  async findTeamById(id: string): Promise<Team | Error> {
     try {
       return await this.teamRepository.findTeamById(id);
     } catch (e) {
@@ -49,9 +51,18 @@ export class TeamService {
   /*
     GET /team/{id}/member
     returns the members in a team (array of members)
-  
-  async findTeamMember(id: string, status?: string, role?: string) {
-    return 'gets array of team members';
+  */
+  async findTeamMembers(
+    id: string,
+    status?: Status,
+    role?: Role,
+  ): Promise<Member[] | Error> {
+    try {
+      return await this.teamRepository.getTeamMembers(id, status, role);
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   }
 
   /*

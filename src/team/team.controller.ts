@@ -6,7 +6,10 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
+import { Role, Status } from 'src/person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
 import { Team } from './models/team.entity';
 import { TeamService } from './team.service';
@@ -46,14 +49,16 @@ export class TeamController {
   /*
     GET /team/{id}/member
     returns the members in a team (array of members)
-  
+  */
+  @ApiQuery({ name: 'status', required: false })
+  @ApiQuery({ name: 'role', required: false })
   @Get(':id/member')
   async findTeamMember(
     @Param('id') id: string,
-    @Param('status') status?: string,
-    @Param('role') role?: string,
+    @Query('status') status?: Status,
+    @Query('role') role?: Role,
   ) {
-    return 'gets array of team members';
+    return await this.teamService.findTeamMembers(id, status, role);
   }
 
   /*

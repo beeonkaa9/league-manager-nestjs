@@ -8,22 +8,27 @@ import {
   Post,
 } from '@nestjs/common';
 import { CreateTeamDto } from './dtos/create-team.dto';
+import { Team } from './models/team.entity';
+import { TeamService } from './team.service';
 
 @Controller('team')
 export class TeamController {
+  constructor(private teamService: TeamService) {}
   /*
     POST /team:
     Create a team
   */
   @Post()
-  createTeam(@Body() createTeamDto: CreateTeamDto) {
-    return 'this creates a new team';
+  async createTeam(
+    @Body() createTeamDto: CreateTeamDto,
+  ): Promise<Team | Error> {
+    return await this.teamService.createTeam(createTeamDto);
   }
 
   /*
     GET /team/{id}
     returns a team
-  */
+  
   @Get(':id')
   findTeamById(@Param('id') id: string) {
     return 'finds a team by id';
@@ -32,7 +37,7 @@ export class TeamController {
   /*
     GET /team/{id}/matches
     returns all matches a team has participated in
-  */
+  
   @Get(':id/matches')
   findTeamMatches(@Param('id') id: string) {
     return 'finds the matches a team has played in';
@@ -41,7 +46,7 @@ export class TeamController {
   /*
     GET /team/{id}/member
     returns the members in a team (array of members)
-  */
+  
   @Get(':id/member')
   findTeamMember(
     @Param('id') id: string,
@@ -60,7 +65,7 @@ export class TeamController {
       "players": number;
       "matches": number;
     }
-  */
+  
   @Get(':id/stats')
   findTeamStats() {
     return 'this returns stats for a team';
@@ -69,7 +74,7 @@ export class TeamController {
   /*
     PATCH /team/{id}
     updates a team
-  */
+  
   @Patch(':id')
   updateTeamId(@Param('id') id: string, @Body() body: string) {
     return 'posts an update for team';
@@ -78,7 +83,7 @@ export class TeamController {
   /*
     PATCH /team/status
     updates a team's status
-  */
+  
   @Patch(':id/status')
   updateTeamStatus(@Param('id') id: string, @Body() body: string) {
     return 'posts a status update for team';
@@ -87,9 +92,10 @@ export class TeamController {
   /*
     Delete /team/{id}
     deletes a team
-  */
+  
   @Delete(':id')
   removeTeam(@Param('id') id: string) {
     return 'deletes a team';
   }
+  */
 }

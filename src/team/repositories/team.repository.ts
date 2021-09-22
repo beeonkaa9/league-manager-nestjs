@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { Team } from '../models/team.entity';
 
 export interface ITeamRepository {
   createTeam(team: Team): Promise<Team>;
-  //   findTeamById(id: string): Promise<Team>;
+  findTeamById(id: string): Promise<Team>;
   //   //any will most likely change; any for now since I don't think it can be Team[]
   //   getTeamMatches(id: string): Promise<any>;
   //   getTeamMembers(id: string): Promise<Team[]>;
@@ -23,5 +23,13 @@ export class TeamRepository
 {
   public async createTeam(team: Team): Promise<Team> {
     return await this.save(team);
+  }
+
+  public async findTeamById(id: string): Promise<Team> {
+    try {
+      return await this.findOneOrFail(id);
+    } catch {
+      throw new NotFoundException('this id does not exist in the teams table');
+    }
   }
 }

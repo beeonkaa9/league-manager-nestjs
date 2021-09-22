@@ -28,16 +28,21 @@ export class TeamService {
   /*
     GET /team/{id}
     returns a team
-  
-  findTeamById(id: string) {
-    return 'finds a team by id';
+  */
+  async findTeamById(id: string) {
+    try {
+      return await this.teamRepository.findTeamById(id);
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   }
 
   /*
     GET /team/{id}/matches
     returns all matches a team has participated in
   
-  findTeamMatches(id: string) {
+  async findTeamMatches(id: string) {
     return 'finds the matches a team has played in';
   }
 
@@ -45,7 +50,7 @@ export class TeamService {
     GET /team/{id}/member
     returns the members in a team (array of members)
   
-  findTeamMember(id: string, status?: string, role?: string) {
+  async findTeamMember(id: string, status?: string, role?: string) {
     return 'gets array of team members';
   }
 
@@ -53,7 +58,7 @@ export class TeamService {
     GET /team/{id}/stats
     returns the stats 
   
-  findTeamStats() {
+  async findTeamStats() {
     return 'this returns stats for a team';
   }
 
@@ -61,7 +66,7 @@ export class TeamService {
     PATCH /team/{id}
     updates a team
   
-  updateTeamId(id: string, body: string) {
+  async updateTeamId(id: string, body: string) {
     return 'posts an update for team';
   }
 
@@ -69,7 +74,7 @@ export class TeamService {
     PATCH /team/status
     updates a team's status
   
-  updateTeamStatus(id: string, body: string) {
+  async updateTeamStatus(id: string, body: string) {
     return 'posts a status update for team';
   }
 
@@ -77,7 +82,7 @@ export class TeamService {
     Delete /team/{id}
     deletes a team
   
-  removeTeam(id: string) {
+  async removeTeam(id: string) {
     return 'deletes a team';
   }
   */

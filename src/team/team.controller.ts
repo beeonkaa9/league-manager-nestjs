@@ -28,10 +28,10 @@ export class TeamController {
   /*
     GET /team/{id}
     returns a team
-  
+  */
   @Get(':id')
-  findTeamById(@Param('id') id: string) {
-    return 'finds a team by id';
+  async findTeamById(@Param('id') id: string) {
+    return await this.teamService.findTeamById(id);
   }
 
   /*
@@ -39,7 +39,7 @@ export class TeamController {
     returns all matches a team has participated in
   
   @Get(':id/matches')
-  findTeamMatches(@Param('id') id: string) {
+  async findTeamMatches(@Param('id') id: string) {
     return 'finds the matches a team has played in';
   }
 
@@ -48,7 +48,7 @@ export class TeamController {
     returns the members in a team (array of members)
   
   @Get(':id/member')
-  findTeamMember(
+  async findTeamMember(
     @Param('id') id: string,
     @Param('status') status?: string,
     @Param('role') role?: string,
@@ -67,7 +67,7 @@ export class TeamController {
     }
   
   @Get(':id/stats')
-  findTeamStats() {
+  async findTeamStats() {
     return 'this returns stats for a team';
   }
 
@@ -76,7 +76,7 @@ export class TeamController {
     updates a team
   
   @Patch(':id')
-  updateTeamId(@Param('id') id: string, @Body() body: string) {
+  async updateTeamId(@Param('id') id: string, @Body() body: string) {
     return 'posts an update for team';
   }
 
@@ -85,7 +85,7 @@ export class TeamController {
     updates a team's status
   
   @Patch(':id/status')
-  updateTeamStatus(@Param('id') id: string, @Body() body: string) {
+  async updateTeamStatus(@Param('id') id: string, @Body() body: string) {
     return 'posts a status update for team';
   }
 
@@ -94,7 +94,7 @@ export class TeamController {
     deletes a team
   
   @Delete(':id')
-  removeTeam(@Param('id') id: string) {
+  async removeTeam(@Param('id') id: string) {
     return 'deletes a team';
   }
   */

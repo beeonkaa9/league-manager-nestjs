@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { CreateMatchDto } from './dtos/create-match.dto';
+import { UpdateMatchDto } from './dtos/update-match.dto';
 import { MatchService } from './match.service';
 import { Match } from './models/match.entity';
 
@@ -37,10 +38,13 @@ export class MatchController {
   /*
     PATCH /{id}
     Updates a match
-  
+  */
   @Patch(':id')
-  async updateMatch(@Param('id') id: string, @Body() body: string) {
-    return 'updates a match';
+  async updateMatch(
+    @Param('id') id: string,
+    @Body() updateMatchDto: UpdateMatchDto,
+  ): Promise<Match | Error> {
+    return await this.matchService.updateMatch(id, updateMatchDto);
   }
 
   /*

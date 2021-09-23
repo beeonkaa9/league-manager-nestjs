@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateMatchDto } from './dtos/create-match.dto';
+import { UpdateMatchDto } from './dtos/update-match.dto';
 import { MatchMapper } from './mappers/match.map';
 import { Match } from './models/match.entity';
 import { MatchRepository } from './repositories/match.repository';
@@ -40,9 +41,17 @@ export class MatchService {
   /*
       PATCH /{id}
       Updates a match
-    
-  async updateMatch(id: string, body: string) {
-    return 'updates a match';
+  */
+  async updateMatch(
+    id: string,
+    updateMatchDto: UpdateMatchDto,
+  ): Promise<Match | Error> {
+    const match: Match = await this.matchRepository.findMatchById(id);
+    try {
+      return await this.matchRepository.updateMatch(match, updateMatchDto);
+    } catch (e) {
+      return e;
+    }
   }
 
   /*

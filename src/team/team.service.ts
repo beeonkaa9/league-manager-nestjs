@@ -112,9 +112,14 @@ export class TeamService {
   /*
     Delete /team/{id}
     deletes a team
-  
-  async removeTeam(id: string) {
-    return 'deletes a team';
-  }
   */
+  async removeTeam(id: string): Promise<Team | Error> {
+    try {
+      const team = await this.teamRepository.findTeamById(id);
+      return await this.teamRepository.deleteTeam(team);
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  }
 }

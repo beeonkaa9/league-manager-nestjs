@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UpdateMemberDto } from 'src/member/dtos/update-member.dto';
 import { Member } from 'src/member/models/member.entity';
 import { MemberRepository } from 'src/member/repositories/member.repository';
 import { Role, Status } from 'src/person/models/person.entity';
@@ -12,7 +11,7 @@ import { Team } from '../models/team.entity';
 export interface ITeamRepository {
   createTeam(team: Team): Promise<Team>;
   findTeamById(id: string): Promise<Team>;
-  //   //any will most likely change; any for now since I don't think it can be Team[]
+  //   //it will be matches[]
   //   getTeamMatches(id: string): Promise<any>;
   getTeamMembers(id: string, status?: Status, role?: Role): Promise<Member[]>;
   // getTeamStats(id: string): Promise<any>;
@@ -21,7 +20,7 @@ export interface ITeamRepository {
     team: Team,
     updateTeamStatusDto: UpdateTeamStatusDto,
   ): Promise<Team>;
-  //   deleteTeam(id: string): Promise<Team>;
+  deleteTeam(team: Team): Promise<Team>;
 }
 
 @Injectable()
@@ -86,5 +85,9 @@ export class TeamRepository
     updateTeamStatusDto: UpdateTeamStatusDto,
   ): Promise<Team> {
     return await this.save({ ...team, ...updateTeamStatusDto });
+  }
+
+  public async deleteTeam(team: Team): Promise<Team> {
+    return await this.remove(team);
   }
 }

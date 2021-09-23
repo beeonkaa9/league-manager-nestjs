@@ -106,10 +106,9 @@ export class TeamController {
   /*
     Delete /team/{id}
     deletes a team
-  
-  @Delete(':id')
-  async removeTeam(@Param('id') id: string) {
-    return 'deletes a team';
-  }
   */
+  @Delete(':id')
+  async removeTeam(@Param('id') id: string): Promise<Team | Error> {
+    return await this.teamService.removeTeam(id);
+  }
 }

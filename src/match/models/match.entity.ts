@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Team } from 'src/team/models/team.entity';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Match {
@@ -43,6 +44,10 @@ export class Match {
   get getLocation(): string {
     return this.location;
   }
+
+  @ManyToMany(() => Team, (team) => team.matches)
+  @JoinTable()
+  teams: Team[];
 
   constructor(
     id: string,

@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Member } from 'src/member/models/member.entity';
 import { Role, Status } from 'src/person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
+import { UpdateTeamStatusDto } from './dtos/update-team-status.dto';
 import { UpdateTeamDto } from './dtos/update-team.dto';
 import { TeamMapper } from './mappers/team.map';
 import { Team } from './models/team.entity';
@@ -70,7 +71,7 @@ export class TeamService {
     GET /team/{id}/stats
     returns the stats 
   
-  async findTeamStats() {
+  async getTeamStats() {
     return 'this returns stats for a team';
   }
 
@@ -81,12 +82,12 @@ export class TeamService {
   async updateTeamById(
     id: string,
     updateTeamDto: UpdateTeamDto,
-  ): Promise<Team> {
+  ): Promise<Team | Error> {
     const team: Team = await this.teamRepository.findTeamById(id);
-
     try {
       return await this.teamRepository.updateTeamById(team, updateTeamDto);
     } catch (e) {
+      console.log(e);
       return e;
     }
   }
@@ -94,9 +95,18 @@ export class TeamService {
   /*
     PATCH /team/status
     updates a team's status
-  
-  async updateTeamStatus(id: string, body: string) {
-    return 'posts a status update for team';
+  */
+  async updateTeamStatus(
+    id: string,
+    updateTeamStatusDto: UpdateTeamStatusDto,
+  ): Promise<Team | Error> {
+    const team: Team = await this.teamRepository.findTeamById(id);
+    try {
+      return this.teamRepository.updateTeamStatus(team, updateTeamStatusDto);
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   }
 
   /*

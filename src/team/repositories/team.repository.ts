@@ -5,6 +5,7 @@ import { Member } from 'src/member/models/member.entity';
 import { MemberRepository } from 'src/member/repositories/member.repository';
 import { Role, Status } from 'src/person/models/person.entity';
 import { EntityRepository, Repository } from 'typeorm';
+import { UpdateTeamStatusDto } from '../dtos/update-team-status.dto';
 import { UpdateTeamDto } from '../dtos/update-team.dto';
 import { Team } from '../models/team.entity';
 
@@ -14,9 +15,12 @@ export interface ITeamRepository {
   //   //any will most likely change; any for now since I don't think it can be Team[]
   //   getTeamMatches(id: string): Promise<any>;
   getTeamMembers(id: string, status?: Status, role?: Role): Promise<Member[]>;
+  // getTeamStats(id: string): Promise<any>;
   updateTeamById(team: Team, updateTeamDto: UpdateTeamDto): Promise<Team>;
-  //   //will most likely take in UpdateTeamStatusDto; will return Promise<Team>
-  //   updateTeamStatus();
+  updateTeamStatus(
+    team: Team,
+    updateTeamStatusDto: UpdateTeamStatusDto,
+  ): Promise<Team>;
   //   deleteTeam(id: string): Promise<Team>;
 }
 
@@ -75,5 +79,12 @@ export class TeamRepository
     updateTeamDto: UpdateTeamDto,
   ): Promise<Team> {
     return await this.save({ ...team, ...updateTeamDto });
+  }
+
+  public async updateTeamStatus(
+    team: Team,
+    updateTeamStatusDto: UpdateTeamStatusDto,
+  ): Promise<Team> {
+    return await this.save({ ...team, ...updateTeamStatusDto });
   }
 }

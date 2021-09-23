@@ -9,8 +9,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiQuery } from '@nestjs/swagger';
+import { Member } from 'src/member/models/member.entity';
 import { Role, Status } from 'src/person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
+import { UpdateTeamStatusDto } from './dtos/update-team-status.dto';
 import { UpdateTeamDto } from './dtos/update-team.dto';
 import { Team } from './models/team.entity';
 import { TeamService } from './team.service';
@@ -34,7 +36,7 @@ export class TeamController {
     returns a team
   */
   @Get(':id')
-  async findTeamById(@Param('id') id: string) {
+  async findTeamById(@Param('id') id: string): Promise<Team | Error> {
     return await this.teamService.findTeamById(id);
   }
 
@@ -58,7 +60,7 @@ export class TeamController {
     @Param('id') id: string,
     @Query('status') status?: Status,
     @Query('role') role?: Role,
-  ) {
+  ): Promise<Member[] | Error> {
     return await this.teamService.findTeamMembers(id, status, role);
   }
 
@@ -71,7 +73,7 @@ export class TeamController {
       "players": number;
       "matches": number;
     }
-  
+
   @Get(':id/stats')
   async findTeamStats() {
     return 'this returns stats for a team';
@@ -85,17 +87,20 @@ export class TeamController {
   async updateTeamById(
     @Param('id') id: string,
     @Body() updateTeamDto: UpdateTeamDto,
-  ) {
+  ): Promise<Team | Error> {
     return await this.teamService.updateTeamById(id, updateTeamDto);
   }
 
   /*
     PATCH /team/status
     updates a team's status
-  
+  */
   @Patch(':id/status')
-  async updateTeamStatus(@Param('id') id: string, @Body() body: string) {
-    return 'posts a status update for team';
+  async updateTeamStatus(
+    @Param('id') id: string,
+    @Body() updateTeamStatusDto: UpdateTeamStatusDto,
+  ): Promise<Team | Error> {
+    return this.teamService.updateTeamStatus(id, updateTeamStatusDto);
   }
 
   /*

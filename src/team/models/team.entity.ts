@@ -1,6 +1,6 @@
 import { Member } from '../../member/models/member.entity';
 import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm';
-import { Match } from 'src/match/models/match.entity';
+import { Match } from '../../match/models/match.entity';
 
 export enum teamStatus {
   Active = 'ACTIVE',

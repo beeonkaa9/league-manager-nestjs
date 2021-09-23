@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Member } from 'src/member/models/member.entity';
-import { MemberRepository } from 'src/member/repositories/member.repository';
-import { Role, Status } from 'src/person/models/person.entity';
+import { Member } from '../../member/models/member.entity';
+import { MemberRepository } from '../../member/repositories/member.repository';
+import { Role, Status } from '../../person/models/person.entity';
 import { EntityRepository, Repository } from 'typeorm';
 import { UpdateTeamStatusDto } from '../dtos/update-team-status.dto';
 import { UpdateTeamDto } from '../dtos/update-team.dto';

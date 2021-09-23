@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Member } from 'src/member/models/member.entity';
-import { Role, Status } from 'src/person/models/person.entity';
+import { Member } from '../member/models/member.entity';
+import { Role, Status } from '../person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
 import { UpdateTeamStatusDto } from './dtos/update-team-status.dto';
 import { UpdateTeamDto } from './dtos/update-team.dto';

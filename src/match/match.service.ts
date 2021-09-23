@@ -19,6 +19,7 @@ export class MatchService {
       const match = MatchMapper.toDomain(createMatchDto);
       return await this.matchRepository.createMatch(match);
     } catch (e) {
+      console.log(e);
       return e;
     }
   }
@@ -26,9 +27,14 @@ export class MatchService {
   /*
       GET /match/{id}
       Find a match by id
-    
-  async findMatch(id: string) {
-    return 'finds a match';
+  */
+  async findMatchById(id: string): Promise<Match | Error> {
+    try {
+      return await this.matchRepository.findMatchById(id);
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   }
 
   /*

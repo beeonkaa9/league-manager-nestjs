@@ -28,10 +28,10 @@ export class MatchController {
   /*
     GET /match/{id}
     Find a match by id
-  
+  */
   @Get(':id')
-  async findMatch(@Param('id') id: string) {
-    return 'finds a match';
+  async findMatchById(@Param('id') id: string): Promise<Match | Error> {
+    return await this.matchService.findMatchById(id);
   }
 
   /*

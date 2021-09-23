@@ -193,7 +193,7 @@ export class initTables1630006279584 implements MigrationInterface {
       'match',
       new TableForeignKey({
         columnNames: ['home'],
-        referencedColumnNames: ['name'],
+        referencedColumnNames: ['id'],
         referencedTableName: 'team',
         onDelete: 'CASCADE',
       }),
@@ -203,7 +203,7 @@ export class initTables1630006279584 implements MigrationInterface {
       'match',
       new TableForeignKey({
         columnNames: ['away'],
-        referencedColumnNames: ['name'],
+        referencedColumnNames: ['id'],
         referencedTableName: 'team',
         onDelete: 'CASCADE',
       }),

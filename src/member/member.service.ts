@@ -85,7 +85,7 @@ export class MemberService {
   async updateMemberStatus(
     id: string,
     updateMemberStatusDto: UpdateMemberStatusDto,
-  ): Promise<Member> {
+  ): Promise<Member | Error> {
     try {
       const member: Member = await this.memberRepository.findMemberById(id);
       return await this.memberRepository.updateMemberStatus(

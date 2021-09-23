@@ -64,7 +64,7 @@ export class MemberController {
   async updateMemberStatus(
     @Param('id') id: string,
     @Body() updateMemberStatusDto: UpdateMemberStatusDto,
-  ): Promise<Member> {
+  ): Promise<Member | Error> {
     return await this.memberService.updateMemberStatus(
       id,
       updateMemberStatusDto,

@@ -50,10 +50,9 @@ export class MatchController {
   /*
     Delete /match/{id}
     Deletes a match
-  
-  @Delete(':id')
-  async deleteMatch(@Param('id') id: string) {
-    return 'deletes a match';
-  }
   */
+  @Delete(':id')
+  async deleteMatch(@Param('id') id: string): Promise<Match | Error> {
+    return await this.matchService.deleteMatch(id);
+  }
 }

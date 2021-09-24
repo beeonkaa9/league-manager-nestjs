@@ -1,6 +1,5 @@
 import { Team } from '../../team/models/team.entity';
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
-
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 @Entity()
 export class Match {
   @PrimaryColumn({ type: 'uuid' })
@@ -45,9 +44,10 @@ export class Match {
     return this.location;
   }
 
-  @ManyToMany(() => Team, (team) => team.matches)
-  @JoinTable()
-  teams: Team[];
+  @ManyToOne(() => Team, (team) => team.matches)
+  @JoinColumn({ name: 'home', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'away', referencedColumnName: 'id' })
+  team: Team;
 
   constructor(
     id: string,

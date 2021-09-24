@@ -7,7 +7,7 @@ export interface IMatchRepository {
   createMatch(match: Match): Promise<Match>;
   findMatchById(id: string): Promise<Match>;
   updateMatch(match: Match, updateMatchDto: UpdateMatchDto): Promise<Match>;
-  //   deleteMatch(match: Match): Promise<Match>;
+  deleteMatch(match: Match): Promise<Match>;
 }
 
 @Injectable()
@@ -33,5 +33,9 @@ export class MatchRepository
     updateMatchDto: UpdateMatchDto,
   ): Promise<Match> {
     return await this.save({ ...match, ...updateMatchDto });
+  }
+
+  public async deleteMatch(match: Match): Promise<Match> {
+    return await this.remove(match);
   }
 }

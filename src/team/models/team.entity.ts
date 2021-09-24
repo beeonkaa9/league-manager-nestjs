@@ -1,5 +1,5 @@
 import { Member } from '../../member/models/member.entity';
-import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 import { Match } from '../../match/models/match.entity';
 
 export enum teamStatus {
@@ -46,7 +46,7 @@ export class Team {
   @OneToMany(() => Member, (member) => member.team)
   members: Member[];
 
-  @ManyToMany(() => Match, (match) => match.teams)
+  @OneToMany(() => Match, (match) => match.team)
   matches: Match[];
 
   constructor(

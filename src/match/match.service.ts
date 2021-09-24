@@ -50,6 +50,7 @@ export class MatchService {
     try {
       return await this.matchRepository.updateMatch(match, updateMatchDto);
     } catch (e) {
+      console.log(e);
       return e;
     }
   }
@@ -57,9 +58,14 @@ export class MatchService {
   /*
       Delete /match/{id}
       Deletes a match
-    
-  async deleteMatch(id: string) {
-    return 'deletes a match';
+ */
+  async deleteMatch(id: string): Promise<Match | Error> {
+    const match: Match = await this.matchRepository.findMatchById(id);
+    try {
+      return await this.matchRepository.deleteMatch(match);
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   }
-  */
 }

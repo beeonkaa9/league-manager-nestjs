@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiQuery } from '@nestjs/swagger';
+import { Match } from 'src/match/models/match.entity';
 import { Member } from '../member/models/member.entity';
 import { Role, Status } from '../person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
@@ -43,10 +44,10 @@ export class TeamController {
   /*
     GET /team/{id}/matches
     returns all matches a team has participated in
-  
+  */
   @Get(':id/matches')
-  async findTeamMatches(@Param('id') id: string) {
-    return 'finds the matches a team has played in';
+  async findTeamMatches(@Param('id') id: string): Promise<Match[] | Error> {
+    return await this.teamService.findTeamMatches(id);
   }
 
   /*

@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Match } from 'src/match/models/match.entity';
+import { MatchRepository } from 'src/match/repositories/match.repository';
 import { MemberRepository } from 'src/member/repositories/member.repository';
 import { Member } from '../member/models/member.entity';
 import { Role, Status } from '../person/models/person.entity';
@@ -14,6 +16,7 @@ export class TeamService {
   constructor(
     private teamRepository: TeamRepository,
     private memberRepository: MemberRepository,
+    private matchRepository: MatchRepository,
   ) {}
   /*
     POST /team:
@@ -46,9 +49,15 @@ export class TeamService {
   /*
     GET /team/{id}/matches
     returns all matches a team has participated in
-  
-  async findTeamMatches(id: string) {
-    return 'finds the matches a team has played in';
+  */
+  async findTeamMatches(id: string): Promise<Match[] | Error> {
+    try {
+      await this.teamRepository.findTeamById(id);
+      return await this.matchRepository.getTeamMatches(id);
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   }
 
   /*
@@ -61,6 +70,7 @@ export class TeamService {
     role?: Role,
   ): Promise<Member[] | Error> {
     try {
+      await this.teamRepository.findTeamById(id);
       return await this.memberRepository.getTeamMembers(id, status, role);
     } catch (e) {
       console.log(e);

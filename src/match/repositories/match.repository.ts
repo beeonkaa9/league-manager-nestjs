@@ -6,6 +6,7 @@ import { Match } from '../models/match.entity';
 export interface IMatchRepository {
   createMatch(match: Match): Promise<Match>;
   findMatchById(id: string): Promise<Match>;
+  getTeamMatches(id: string): Promise<Match[]>;
   updateMatch(match: Match, updateMatchDto: UpdateMatchDto): Promise<Match>;
   deleteMatch(match: Match): Promise<Match>;
 }
@@ -26,6 +27,17 @@ export class MatchRepository
     } catch (e) {
       throw new NotFoundException('this id does not exist in the match table');
     }
+  }
+
+  public async getTeamMatches(id: string): Promise<Match[]> {
+    //if id in home OR id in away, return row
+    const query: any = this.createQueryBuilder()
+      .select('match')
+      .from(Match, 'match')
+      .where('match.home =:home', { home: id })
+      .orWhere('match.away =:away', { away: id });
+
+    return await query.getMany();
   }
 
   public async updateMatch(

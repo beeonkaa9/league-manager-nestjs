@@ -7,7 +7,6 @@ import { Team } from '../models/team.entity';
 export interface ITeamRepository {
   createTeam(team: Team): Promise<Team>;
   findTeamById(id: string): Promise<Team>;
-  // getTeamMatches(id: string): Promise<Match[]>;
   // getTeamStats(id: string): Promise<any>;
   updateTeamById(team: Team, updateTeamDto: UpdateTeamDto): Promise<Team>;
   updateTeamStatus(

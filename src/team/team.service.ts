@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { MemberRepository } from 'src/member/repositories/member.repository';
 import { Member } from '../member/models/member.entity';
 import { Role, Status } from '../person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
@@ -12,7 +12,8 @@ import { TeamRepository } from './repositories/team.repository';
 @Injectable()
 export class TeamService {
   constructor(
-    @InjectRepository(TeamRepository) private teamRepository: TeamRepository,
+    private teamRepository: TeamRepository,
+    private memberRepository: MemberRepository,
   ) {}
   /*
     POST /team:
@@ -60,7 +61,7 @@ export class TeamService {
     role?: Role,
   ): Promise<Member[] | Error> {
     try {
-      return await this.teamRepository.getTeamMembers(id, status, role);
+      return await this.memberRepository.getTeamMembers(id, status, role);
     } catch (e) {
       console.log(e);
       return e;

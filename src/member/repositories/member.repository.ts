@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Role, Status } from 'src/person/models/person.entity';
 import { EntityRepository, Repository } from 'typeorm';
 import { Query } from 'typeorm/driver/Query';
 import { UpdateMemberStatusDto } from '../dtos/update-member-status.dto';
@@ -9,6 +10,7 @@ export interface IMemberRepository {
   createMember(member: Member): Promise<Member>;
   findMemberById(id: string): Promise<Member>;
   findFreeAgents(query: Query): Promise<Member[]>;
+  getTeamMembers(id: string, status?: Status, role?: Role): Promise<Member[]>;
   updateMemberById(
     member: Member,
     updateMemberDto: UpdateMemberDto,
@@ -45,6 +47,30 @@ export class MemberRepository
       .from(Member, 'member')
       .where('member.team_id is null')
       .getMany();
+  }
+
+  public async getTeamMembers(
+    id: string,
+    status?: Status,
+    role?: Role,
+  ): Promise<Member[]> {
+    let query: any = this.createQueryBuilder()
+      .select('member')
+      .from(Member, 'member')
+      .where('member.team_id = :teamid', { teamid: id });
+
+    if (status != null) {
+      query = query.andWhere('member.status = :status', { status: status });
+    }
+    if (status == null && role != null) {
+      query = query.andWhere('member.role = :role', { role: role });
+    }
+    if (status != null && role != null) {
+      query = query.andWhere('member.status = :status', { status: status });
+      query = query.andWhere('member.role = :role', { role: role });
+    }
+
+    return await query.getMany();
   }
 
   public async updateMemberById(

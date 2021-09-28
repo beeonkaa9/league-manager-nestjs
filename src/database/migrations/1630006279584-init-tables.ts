@@ -141,17 +141,17 @@ export class initTables1630006279584 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'text',
             isPrimary: true,
           },
           {
             name: 'home',
-            type: 'character varying',
+            type: 'text',
             isNullable: false,
           },
           {
             name: 'away',
-            type: 'character varying',
+            type: 'text',
             isNullable: false,
           },
           {

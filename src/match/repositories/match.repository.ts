@@ -7,6 +7,9 @@ export interface IMatchRepository {
   createMatch(match: Match): Promise<Match>;
   findMatchById(id: string): Promise<Match>;
   getTeamMatches(id: string): Promise<Match[]>;
+  countWins(id: string): Promise<number>;
+  countLosses(id: string): Promise<number>;
+  countMatches(id: string): Promise<number>;
   updateMatch(match: Match, updateMatchDto: UpdateMatchDto): Promise<Match>;
   deleteMatch(match: Match): Promise<Match>;
 }
@@ -31,13 +34,39 @@ export class MatchRepository
 
   public async getTeamMatches(id: string): Promise<Match[]> {
     //if id in home OR id in away, return row
-    const query: any = this.createQueryBuilder()
+    return await this.createQueryBuilder()
       .select('match')
       .from(Match, 'match')
       .where('match.home =:home', { home: id })
-      .orWhere('match.away =:away', { away: id });
+      .orWhere('match.away =:away', { away: id })
+      .getMany();
 
-    return await query.getMany();
+    // return await query.getMany();
+  }
+
+  public async countWins(id: string): Promise<number> {
+    const totalWins = await this.query(
+      `SELECT COUNT(m.id) FROM match m, team t WHERE t.id = $1 AND ((t.id = m.home AND home_score > away_score) OR (t.id = m.away AND away_score > home_score))`,
+      [id],
+    );
+
+    return totalWins;
+  }
+
+  public async countLosses(id: string): Promise<any> {
+    const totalLosses = await this.query(
+      `SELECT COUNT(m.id) FROM match m, team t WHERE t.id = $1 AND ((t.id = m.home AND home_score < away_score) OR (t.id = m.away AND away_score < home_score))`,
+      [id],
+    );
+
+    return totalLosses;
+  }
+
+  public async countMatches(id: string): Promise<any> {
+    return await this.query(
+      `SELECT COUNT(m.id) FROM match m WHERE m.home = $1 OR m.away = $1`,
+      [id],
+    );
   }
 
   public async updateMatch(

@@ -13,6 +13,7 @@ import { Match } from 'src/match/models/match.entity';
 import { Member } from '../member/models/member.entity';
 import { Role, Status } from '../person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
+import { TeamStatsDto } from './dtos/team-stats.dto';
 import { UpdateTeamStatusDto } from './dtos/update-team-status.dto';
 import { UpdateTeamDto } from './dtos/update-team.dto';
 import { Team } from './models/team.entity';
@@ -74,10 +75,10 @@ export class TeamController {
       "players": number;
       "matches": number;
     }
-
+  */
   @Get(':id/stats')
-  async findTeamStats() {
-    return 'this returns stats for a team';
+  async findTeamStats(@Param('id') id: string): Promise<TeamStatsDto> {
+    return await this.teamService.getTeamStats(id);
   }
 
   /*
@@ -101,7 +102,7 @@ export class TeamController {
     @Param('id') id: string,
     @Body() updateTeamStatusDto: UpdateTeamStatusDto,
   ): Promise<Team | Error> {
-    return this.teamService.updateTeamStatus(id, updateTeamStatusDto);
+    return await this.teamService.updateTeamStatus(id, updateTeamStatusDto);
   }
 
   /*

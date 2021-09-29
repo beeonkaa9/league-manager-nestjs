@@ -11,6 +11,7 @@ export interface IMemberRepository {
   findMemberById(id: string): Promise<Member>;
   findFreeAgents(query: Query): Promise<Member[]>;
   getTeamMembers(id: string, status?: Status, role?: Role): Promise<Member[]>;
+  getMemberCount(id: string): Promise<number>;
   updateMemberById(
     member: Member,
     updateMemberDto: UpdateMemberDto,
@@ -71,6 +72,12 @@ export class MemberRepository
     }
 
     return await query.getMany();
+  }
+
+  public async getMemberCount(id: string): Promise<number> {
+    return await this.query(`SELECT COUNT(id) from person where team_id = $1`, [
+      id,
+    ]);
   }
 
   public async updateMemberById(

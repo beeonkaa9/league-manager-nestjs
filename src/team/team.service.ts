@@ -5,6 +5,7 @@ import { MemberRepository } from 'src/member/repositories/member.repository';
 import { Member } from '../member/models/member.entity';
 import { Role, Status } from '../person/models/person.entity';
 import { CreateTeamDto } from './dtos/create-team.dto';
+import { TeamStatsDto } from './dtos/team-stats.dto';
 import { UpdateTeamStatusDto } from './dtos/update-team-status.dto';
 import { UpdateTeamDto } from './dtos/update-team.dto';
 import { TeamMapper } from './mappers/team.map';
@@ -81,9 +82,23 @@ export class TeamService {
   /*
     GET /team/{id}/stats
     returns the stats 
-  
-  async getTeamStats() {
-    return 'this returns stats for a team';
+  */
+  //calculate the wins and losses; return count of teams; return count of matches
+  //return this as a JSON
+  async getTeamStats(id: string): Promise<TeamStatsDto> {
+    //calculate wins and losses
+    const teamStatsDto: TeamStatsDto = {
+      win: null,
+      loss: null,
+      players: null,
+      matches: null,
+    };
+    teamStatsDto.win = await this.matchRepository.countWins(id);
+    teamStatsDto.loss = await this.matchRepository.countLosses(id);
+    teamStatsDto.players = await this.memberRepository.getMemberCount(id);
+    teamStatsDto.matches = await this.matchRepository.countMatches(id);
+
+    return teamStatsDto;
   }
 
   /*

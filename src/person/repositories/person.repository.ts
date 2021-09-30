@@ -13,11 +13,6 @@ export class PersonRepository
   implements IPersonRepository
 {
   public async findPersonById(id: string): Promise<Person> {
-    // try {
-    //   return await this.findOneOrFail(id);
-    // } catch {
-    //   throw new NotFoundException('this id does not exist in the system');
-    // }
     try {
       await this.findOneOrFail(id);
       return await this.query(

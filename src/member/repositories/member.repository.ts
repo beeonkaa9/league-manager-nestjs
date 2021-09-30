@@ -75,9 +75,10 @@ export class MemberRepository
   }
 
   public async getMemberCount(id: string): Promise<number> {
-    return await this.query(`SELECT COUNT(id) from person where team_id = $1`, [
-      id,
-    ]);
+    return await this.createQueryBuilder('person')
+      .select('person.id')
+      .where('person.team_id = :id', { id: id })
+      .getCount();
   }
 
   public async updateMemberById(

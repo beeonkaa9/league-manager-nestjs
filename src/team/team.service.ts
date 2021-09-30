@@ -86,13 +86,7 @@ export class TeamService {
   //calculate the wins and losses; return count of teams; return count of matches
   //return this as a JSON
   async getTeamStats(id: string): Promise<TeamStatsDto> {
-    //calculate wins and losses
-    const teamStatsDto: TeamStatsDto = {
-      win: null,
-      loss: null,
-      players: null,
-      matches: null,
-    };
+    const teamStatsDto = new TeamStatsDto();
     teamStatsDto.win = await this.matchRepository.countWins(id);
     teamStatsDto.loss = await this.matchRepository.countLosses(id);
     teamStatsDto.players = await this.memberRepository.getMemberCount(id);

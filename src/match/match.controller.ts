@@ -7,11 +7,13 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateMatchDto } from './dtos/create-match.dto';
 import { UpdateMatchDto } from './dtos/update-match.dto';
 import { MatchService } from './match.service';
 import { Match } from './models/match.entity';
 
+@ApiTags('match')
 @Controller('match')
 export class MatchController {
   constructor(private matchService: MatchService) {}

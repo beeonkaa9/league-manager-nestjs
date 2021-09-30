@@ -1,12 +1,20 @@
-export class CreateTeamDto {
-  id: string;
-  name: string;
-  coach: string;
-  captain: string | null;
-  status: teamStatus;
-}
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export enum teamStatus {
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
+}
+export class CreateTeamDto {
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  coach: string;
+
+  @ApiPropertyOptional()
+  captain: string | null;
+  status: teamStatus;
 }

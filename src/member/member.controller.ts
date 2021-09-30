@@ -7,12 +7,14 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateMemberDto } from './dtos/create-member.dto';
 import { UpdateMemberStatusDto } from './dtos/update-member-status.dto';
 import { UpdateMemberDto } from './dtos/update-member.dto';
 import { MemberService } from './member.service';
 import { Member } from './models/member.entity';
 
+@ApiTags('member')
 @Controller('member')
 export class MemberController {
   constructor(private memberService: MemberService) {}

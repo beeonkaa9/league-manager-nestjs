@@ -8,7 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { ApiQuery } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Match } from 'src/match/models/match.entity';
 import { Member } from '../member/models/member.entity';
 import { Role, Status } from '../person/models/person.entity';
@@ -19,6 +19,7 @@ import { UpdateTeamDto } from './dtos/update-team.dto';
 import { Team } from './models/team.entity';
 import { TeamService } from './team.service';
 
+@ApiTags('team')
 @Controller('team')
 export class TeamController {
   constructor(private teamService: TeamService) {}

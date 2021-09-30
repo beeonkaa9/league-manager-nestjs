@@ -1,14 +1,4 @@
-export class CreatePersonDto {
-  id: string;
-  name: string;
-  last_name: string;
-  phone: number;
-  email: string;
-  dob: string;
-  role: Role;
-  status: Status;
-  age: number;
-}
+import { ApiProperty } from '@nestjs/swagger';
 
 export enum Role {
   Manager = 'MANAGER',
@@ -35,4 +25,33 @@ export enum Status {
   active = 'ACTIVE',
   inactive = 'INACTIVE',
   suspended = 'SUSPENDED',
+}
+
+export class CreatePersonDto {
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  last_name: string;
+
+  @ApiProperty()
+  phone: number;
+
+  @ApiProperty()
+  email: string;
+
+  @ApiProperty()
+  dob: string;
+
+  @ApiProperty()
+  role: Role;
+
+  @ApiProperty()
+  status: Status;
+
+  @ApiProperty()
+  age: number;
 }

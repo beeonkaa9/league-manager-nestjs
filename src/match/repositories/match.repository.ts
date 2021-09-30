@@ -1,6 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { match } from 'assert';
-import { Team } from 'src/team/models/team.entity';
 import { Brackets, EntityRepository, Repository } from 'typeorm';
 import { UpdateMatchDto } from '../dtos/update-match.dto';
 import { Match } from '../models/match.entity';

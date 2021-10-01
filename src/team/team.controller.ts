@@ -82,10 +82,10 @@ export class TeamController {
    * GET /team/{id}/stats
    * calculates the wins, losses, players, and matches of a team
    * @param {string} id
-   * @returns {Promise<TeamStatsDto>}
+   * @returns {Promise<TeamStatsDto | Error>}
    */
   @Get(':id/stats')
-  async findTeamStats(@Param('id') id: string): Promise<TeamStatsDto> {
+  async findTeamStats(@Param('id') id: string): Promise<TeamStatsDto | Error> {
     return await this.teamService.getTeamStats(id);
   }
 

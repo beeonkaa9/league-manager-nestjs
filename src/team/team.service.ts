@@ -84,16 +84,21 @@ export class TeamService {
   /**
    * calculates the wins, losses, players, and matches of a team
    * @param {string} id
-   * @returns {Promise<TeamStatsDto>}
+   * @returns {Promise<TeamStatsDto | Error>}
    */
-  async getTeamStats(id: string): Promise<TeamStatsDto> {
-    const teamStatsDto = new TeamStatsDto();
-    teamStatsDto.win = await this.matchRepository.countWins(id);
-    teamStatsDto.loss = await this.matchRepository.countLosses(id);
-    teamStatsDto.players = await this.memberRepository.getMemberCount(id);
-    teamStatsDto.matches = await this.matchRepository.countMatches(id);
+  async getTeamStats(id: string): Promise<TeamStatsDto | Error> {
+    await this.teamRepository.findTeamById(id);
+    try {
+      const teamStatsDto = new TeamStatsDto();
+      teamStatsDto.win = await this.matchRepository.countWins(id);
+      teamStatsDto.loss = await this.matchRepository.countLosses(id);
+      teamStatsDto.players = await this.memberRepository.getMemberCount(id);
+      teamStatsDto.matches = await this.matchRepository.countMatches(id);
 
-    return teamStatsDto;
+      return teamStatsDto;
+    } catch (e) {
+      return e;
+    }
   }
 
   /**

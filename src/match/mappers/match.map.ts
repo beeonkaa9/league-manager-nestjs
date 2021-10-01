@@ -1,6 +1,7 @@
 import { CreateMatchDto } from '../dtos/create-match.dto';
 import { Match } from '../models/match.entity';
 
+//converts from entity to dto
 export class MatchMapper {
   public static toDto(raw: Match): CreateMatchDto {
     const matchDto = new CreateMatchDto();
@@ -15,6 +16,7 @@ export class MatchMapper {
     return matchDto;
   }
 
+  //converts from dto to entity
   public static toDomain(createMatchDto: CreateMatchDto): Match {
     const match = new Match(
       createMatchDto.id,

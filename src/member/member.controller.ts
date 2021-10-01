@@ -18,10 +18,13 @@ import { Member } from './models/member.entity';
 @Controller('member')
 export class MemberController {
   constructor(private memberService: MemberService) {}
-  /*
-    POST /member:
-    Create a member of a team along with an entry in the person table
-  */
+
+  /**
+   * POST /member:
+   * Create a member of a team along with an entry in the person table
+   * @param {CreateMemberDto} createMemberDto
+   * @returns {Member<Member | Error>}
+   */
   @Post()
   async createMember(
     @Body() createMemberDto: CreateMemberDto,
@@ -29,27 +32,34 @@ export class MemberController {
     return await this.memberService.createMember(createMemberDto);
   }
 
-  /*
-  GET /member/free-agent
-  return all players without a team
-  */
+  /**
+   * GET /member/free-agent
+   * return all players without a team
+   * @returns {Promise<Member[] | Error>}
+   */
   @Get('/free-agent')
   async findFreeAgents(): Promise<Member[] | Error> {
     return await this.memberService.findFreeAgents();
   }
-  /*
-  GET /member/{id}:
-  this should return member data and person data
-  */
+
+  /**
+   * GET /member/{id}:
+   * filter by id ; returns member and person data
+   * @param {string} id
+   * @returns {Promise<Member>}
+   */
   @Get(':id')
-  async findMemberById(@Param('id') id: string): Promise<Member | Error> {
+  async findMemberById(@Param('id') id: string): Promise<Member> {
     return await this.memberService.findMemberById(id);
   }
 
-  /*
-  PATCH /member/{id}
-  update a member via id
-  */
+  /**
+   * PATCH /member/{id}
+   * updates member and saves changes to database
+   * @param {string} id
+   * @param {UpdateMemberDto} updateMemberDto
+   * @returns {Promise<Member | Error>}
+   */
   @Patch(':id')
   async updateMemberById(
     @Param('id') id: string,
@@ -58,10 +68,13 @@ export class MemberController {
     return await this.memberService.updateMemberById(id, updateMemberDto);
   }
 
-  /*
-  PATCH /member/{id}/status
-  update a member's status
-  */
+  /**
+   * PATCH /member/{id}/status
+   * update a member's status
+   * @param {string} id
+   * @param {updateMemberStatusDto} updateMemberStatusDto
+   * @returns {Promise<Member | Error>}
+   */
   @Patch(':id/status')
   async updateMemberStatus(
     @Param('id') id: string,
@@ -73,10 +86,12 @@ export class MemberController {
     );
   }
 
-  /*
-  DELETE /member/{id}
-  delete a member
-  */
+  /**
+   * DELETE /member/{id}
+   * deletes a member
+   * @param {string} id
+   * @returns {Promise<Member | Error>}
+   */
   @Delete(':id')
   async deleteMember(@Param('id') id: string): Promise<Member | Error> {
     return await this.memberService.deleteMember(id);

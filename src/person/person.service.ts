@@ -9,13 +9,13 @@ export class PersonService {
     @InjectRepository(PersonRepository)
     private personRepository: PersonRepository,
   ) {}
-  /*
-  GET /person/{id}:
-  this returns only person data (no members)
-  */
-  async findPersonById(id: string): Promise<Person> {
-    //find a person that is also not a member
 
+  /**
+   * filters person by id
+   * @param {string} id
+   * @returns {Promise:<Person>}
+   */
+  async findPersonById(id: string): Promise<Person> {
     return await this.personRepository.findPersonById(id);
   }
 }

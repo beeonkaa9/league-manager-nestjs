@@ -21,10 +21,20 @@ export class TeamRepository
   extends Repository<Team>
   implements ITeamRepository
 {
+  /**
+   * saves a team to the database
+   * @param {Team} team
+   * @returns {Promise<Team>}
+   */
   public async createTeam(team: Team): Promise<Team> {
     return await this.save(team);
   }
 
+  /**
+   * filters team by id
+   * @param {string} id
+   * @returns {Promise<Team>}
+   */
   public async findTeamById(id: string): Promise<Team> {
     try {
       return await this.findOneOrFail(id);
@@ -33,6 +43,12 @@ export class TeamRepository
     }
   }
 
+  /**
+   * updates team, saves changes to database
+   * @param {Team} team
+   * @param {UpdateTeamDto} updateTeamDto
+   * @returns {Promise<Team>}
+   */
   public async updateTeamById(
     team: Team,
     updateTeamDto: UpdateTeamDto,
@@ -40,6 +56,12 @@ export class TeamRepository
     return await this.save({ ...team, ...updateTeamDto });
   }
 
+  /**
+   * updates the status for team
+   * @param {Team} team
+   * @param {updateTeamStatusDto} updateTeamStatusDto
+   * @returns {Promise<Team>}
+   */
   public async updateTeamStatus(
     team: Team,
     updateTeamStatusDto: UpdateTeamStatusDto,
@@ -47,6 +69,11 @@ export class TeamRepository
     return await this.save({ ...team, ...updateTeamStatusDto });
   }
 
+  /**
+   * deletes a team from the database
+   * @param {Team} team
+   * @returns {Promise<Team>}
+   */
   public async deleteTeam(team: Team): Promise<Team> {
     return await this.remove(team);
   }

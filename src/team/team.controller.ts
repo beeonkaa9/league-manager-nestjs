@@ -23,10 +23,13 @@ import { TeamService } from './team.service';
 @Controller('team')
 export class TeamController {
   constructor(private teamService: TeamService) {}
-  /*
-    POST /team:
-    Create a team
-  */
+
+  /**
+   * POST /team:
+   * creates a team
+   * @param {CreateTeamDto} createTeamDto
+   * @returns {Promise<Team | Error>}
+   */
   @Post()
   async createTeam(
     @Body() createTeamDto: CreateTeamDto,
@@ -34,28 +37,36 @@ export class TeamController {
     return await this.teamService.createTeam(createTeamDto);
   }
 
-  /*
-    GET /team/{id}
-    returns a team
-  */
+  /**
+   * GET /team/{id}
+   * returns a team
+   * @param {string} id
+   * @returns {Promise<Team>}
+   */
   @Get(':id')
-  async findTeamById(@Param('id') id: string): Promise<Team | Error> {
+  async findTeamById(@Param('id') id: string): Promise<Team> {
     return await this.teamService.findTeamById(id);
   }
 
-  /*
-    GET /team/{id}/matches
-    returns all matches a team has participated in
-  */
+  /**
+   * GET /team/{id}/matches
+   * returns all matches a team has participated in
+   * @param {string} id
+   * @returns {Promise<Team>}
+   */
   @Get(':id/matches')
   async findTeamMatches(@Param('id') id: string): Promise<Match[] | Error> {
     return await this.teamService.findTeamMatches(id);
   }
 
-  /*
-    GET /team/{id}/member
-    returns the members in a team (array of members)
-  */
+  /**
+   * GET /team/{id}/member
+   * finds members with id (team_id from member), status, and role matching parameters
+   * @param {string} id
+   * @param {Status} status
+   * @param {Role} role
+   * @returns {Promise<Member[] |  Error>}
+   */
   @ApiQuery({ name: 'status', required: false })
   @ApiQuery({ name: 'role', required: false })
   @Get(':id/member')
@@ -67,25 +78,24 @@ export class TeamController {
     return await this.teamService.findTeamMembers(id, status, role);
   }
 
-  /*
-    GET /team/{id}/stats
-    returns the stats in the following JSON format:
-    type response = { 
-      "win": number;
-      "loss": number;
-      "players": number;
-      "matches": number;
-    }
-  */
+  /**
+   * GET /team/{id}/stats
+   * calculates the wins, losses, players, and matches of a team
+   * @param {string} id
+   * @returns {Promise<TeamStatsDto>}
+   */
   @Get(':id/stats')
   async findTeamStats(@Param('id') id: string): Promise<TeamStatsDto> {
     return await this.teamService.getTeamStats(id);
   }
 
-  /*
-    PATCH /team/{id}
-    updates a team
-  */
+  /**
+   * PATCH /team/{id}
+   * updates team; saves changes to database
+   * @param {string} id
+   * @param {UpdateTeamDto} updateTeamDto
+   * @returns {Promise<Team | Error>}
+   */
   @Patch(':id')
   async updateTeamById(
     @Param('id') id: string,
@@ -94,10 +104,13 @@ export class TeamController {
     return await this.teamService.updateTeamById(id, updateTeamDto);
   }
 
-  /*
-    PATCH /team/status
-    updates a team's status
-  */
+  /**
+   * PATCH /team/status
+   * updates a team's status
+   * @param {string} id
+   * @param {UpdateTeamStatusDto} updateTeamStatusDto
+   * @returns {Promise<Team | Error>}
+   */
   @Patch(':id/status')
   async updateTeamStatus(
     @Param('id') id: string,
@@ -106,10 +119,12 @@ export class TeamController {
     return await this.teamService.updateTeamStatus(id, updateTeamStatusDto);
   }
 
-  /*
-    Delete /team/{id}
-    deletes a team
-  */
+  /**
+   * DELETE /team/{id}
+   * deletes a team from the database
+   * @param {string} id
+   * @returns {Promise<Team | Error>}
+   */
   @Delete(':id')
   async removeTeam(@Param('id') id: string): Promise<Team | Error> {
     return await this.teamService.removeTeam(id);

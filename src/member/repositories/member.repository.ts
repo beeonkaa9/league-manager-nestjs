@@ -29,10 +29,20 @@ export class MemberRepository
   extends Repository<Member>
   implements IMemberRepository
 {
+  /**
+   * Saves member to database
+   * @param {Member} member
+   * @returns {Promise<Member>}
+   */
   public async createMember(member: Member): Promise<Member> {
     return await this.save(member);
   }
 
+  /**
+   * filter by id
+   * @param {string} id
+   * @returns {Promise<Member>}
+   */
   public async findMemberById(id: string): Promise<Member> {
     try {
       return await this.findOneOrFail(id);
@@ -41,8 +51,11 @@ export class MemberRepository
     }
   }
 
+  /**
+   * finds all members where team_id is null
+   * @returns {Promise<Member[]>}
+   */
   public async findFreeAgents(): Promise<Member[]> {
-    //if team_id = null, return members
     return await this.createQueryBuilder()
       .select('member')
       .from(Member, 'member')
@@ -50,6 +63,13 @@ export class MemberRepository
       .getMany();
   }
 
+  /**
+   * finds team members based on team_id (this is for GET /team/{id}/member)
+   * @param {string} id
+   * @param {Status} status
+   * @param {Role} role
+   * @returns {Promise<Member[]>}
+   */
   public async getTeamMembers(
     id: string,
     status?: Status,
@@ -74,6 +94,11 @@ export class MemberRepository
     return await query.getMany();
   }
 
+  /**
+   * counts all members that have team_id of param; this method is for GET /team/{id}/stats
+   * @param {string} id
+   * @returns {Promise<number>}
+   */
   public async getMemberCount(id: string): Promise<number> {
     return await this.createQueryBuilder('person')
       .select('person.id')
@@ -81,6 +106,12 @@ export class MemberRepository
       .getCount();
   }
 
+  /**
+   * updates member and saves changes to database
+   * @param {Member} member
+   * @param {UpdateMemberDto} updateMemberDto
+   * @returns {Promise<Member>}
+   */
   public async updateMemberById(
     member: Member,
     updateMemberDto: UpdateMemberDto,
@@ -88,6 +119,12 @@ export class MemberRepository
     return await this.save({ ...member, ...updateMemberDto });
   }
 
+  /**
+   * updates member's status; saves changes to database
+   * @param {Member} member
+   * @param {UpdateMemberStatusDto} updateMemberStatusDto
+   * @returns {Promise<Member>}
+   */
   public async updateMemberStatus(
     member: Member,
     updateMemberStatusDto: UpdateMemberStatusDto,
@@ -95,6 +132,11 @@ export class MemberRepository
     return await this.save({ ...member, ...updateMemberStatusDto });
   }
 
+  /**
+   * delete member from database
+   * @param {Member} member
+   * @returns {Promise<Member>}
+   */
   public async deleteMember(member: Member): Promise<Member> {
     return await this.remove(member);
   }

@@ -11,10 +11,12 @@ export class MatchService {
   constructor(
     @InjectRepository(MatchRepository) private matchRepository: MatchRepository,
   ) {}
-  /*
-    POST /match
-    Create a match
-  */
+
+  /**
+   * Creates a match
+   * @param {CreateMatchDto} createMatchDto
+   * @returns {Promise <Match | Error>}
+   */
   async createMatch(createMatchDto: CreateMatchDto): Promise<Match | Error> {
     try {
       const match = MatchMapper.toDomain(createMatchDto);
@@ -25,23 +27,21 @@ export class MatchService {
     }
   }
 
-  /*
-      GET /match/{id}
-      Find a match by id
-  */
-  async findMatchById(id: string): Promise<Match | Error> {
-    try {
-      return await this.matchRepository.findMatchById(id);
-    } catch (e) {
-      console.log(e);
-      return e;
-    }
+  /**
+   * Find a match by id
+   * @param {string} id
+   * @returns {Promise <Match>}
+   */
+  async findMatchById(id: string): Promise<Match> {
+    return await this.matchRepository.findMatchById(id);
   }
 
-  /*
-      PATCH /{id}
-      Updates a match
-  */
+  /**
+   * Updates a match
+   * @param {string} id
+   * @param {UpdateMatchDto} updateMatchDto
+   * @returns {Promise<Match | Error>}
+   */
   async updateMatch(
     id: string,
     updateMatchDto: UpdateMatchDto,
@@ -55,10 +55,11 @@ export class MatchService {
     }
   }
 
-  /*
-      Delete /match/{id}
-      Deletes a match
- */
+  /**
+   * Deletes a match
+   * @param {string} id
+   * @returns {Promise<Match | Error>}
+   */
   async deleteMatch(id: string): Promise<Match | Error> {
     const match: Match = await this.matchRepository.findMatchById(id);
     try {

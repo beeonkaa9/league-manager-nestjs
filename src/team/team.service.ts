@@ -19,10 +19,12 @@ export class TeamService {
     private memberRepository: MemberRepository,
     private matchRepository: MatchRepository,
   ) {}
-  /*
-    POST /team:
-    Create a team
-  */
+
+  /**
+   * creates a team
+   * @param {CreateTeamDto} createTeamDto
+   * @returns {Promise<Team | Error>}
+   */
   async createTeam(createTeamDto: CreateTeamDto): Promise<Team | Error> {
     try {
       const team = TeamMapper.toDomain(createTeamDto);
@@ -34,23 +36,20 @@ export class TeamService {
     }
   }
 
-  /*
-    GET /team/{id}
-    returns a team
-  */
-  async findTeamById(id: string): Promise<Team | Error> {
-    try {
-      return await this.teamRepository.findTeamById(id);
-    } catch (e) {
-      console.log(e);
-      return e;
-    }
+  /**
+   * returns a team
+   * @param {string} id
+   * @returns {Promise<Team>}
+   */
+  async findTeamById(id: string): Promise<Team> {
+    return await this.teamRepository.findTeamById(id);
   }
 
-  /*
-    GET /team/{id}/matches
-    returns all matches a team has participated in
-  */
+  /**
+   * returns all matches a team has participated in
+   * @param {string} id
+   * @returns {Promise<Team>}
+   */
   async findTeamMatches(id: string): Promise<Match[] | Error> {
     try {
       await this.teamRepository.findTeamById(id);
@@ -61,10 +60,13 @@ export class TeamService {
     }
   }
 
-  /*
-    GET /team/{id}/member
-    returns the members in a team (array of members)
-  */
+  /**
+   * finds members with id (team_id from member), status, and role matching parameters
+   * @param {string} id
+   * @param {Status} status
+   * @param {Role} role
+   * @returns {Promise<Member[] |  Error>}
+   */
   async findTeamMembers(
     id: string,
     status?: Status,
@@ -79,12 +81,11 @@ export class TeamService {
     }
   }
 
-  /*
-    GET /team/{id}/stats
-    returns the stats 
-  */
-  //calculate the wins and losses; return count of teams; return count of matches
-  //return this as a JSON
+  /**
+   * calculates the wins, losses, players, and matches of a team
+   * @param {string} id
+   * @returns {Promise<TeamStatsDto>}
+   */
   async getTeamStats(id: string): Promise<TeamStatsDto> {
     const teamStatsDto = new TeamStatsDto();
     teamStatsDto.win = await this.matchRepository.countWins(id);
@@ -95,10 +96,12 @@ export class TeamService {
     return teamStatsDto;
   }
 
-  /*
-    PATCH /team/{id}
-    updates a team
-  */
+  /**
+   * updates team; saves changes to database
+   * @param {string} id
+   * @param {UpdateTeamDto} updateTeamDto
+   * @returns {Promise<Team | Error>}
+   */
   async updateTeamById(
     id: string,
     updateTeamDto: UpdateTeamDto,
@@ -112,10 +115,12 @@ export class TeamService {
     }
   }
 
-  /*
-    PATCH /team/status
-    updates a team's status
-  */
+  /**
+   * updates a team's status
+   * @param {string} id
+   * @param {UpdateTeamStatusDto} updateTeamStatusDto
+   * @returns {Promise<Team | Error>}
+   */
   async updateTeamStatus(
     id: string,
     updateTeamStatusDto: UpdateTeamStatusDto,
@@ -129,10 +134,11 @@ export class TeamService {
     }
   }
 
-  /*
-    Delete /team/{id}
-    deletes a team
-  */
+  /**
+   * deletes a team from the database
+   * @param {string} id
+   * @returns {Promise<Team | Error>}
+   */
   async removeTeam(id: string): Promise<Team | Error> {
     try {
       const team = await this.teamRepository.findTeamById(id);

@@ -17,10 +17,13 @@ import { Match } from './models/match.entity';
 @Controller('match')
 export class MatchController {
   constructor(private matchService: MatchService) {}
-  /*
-    POST /match
-    Create a match
-  */
+
+  /**
+   * POST /match
+   * Create a match
+   * @param {CreateMatchDto} createMatchDto
+   * @returns {Promise<Match | Error>}
+   */
   @Post()
   async createMatch(
     @Body() createMatchDto: CreateMatchDto,
@@ -28,19 +31,24 @@ export class MatchController {
     return await this.matchService.createMatch(createMatchDto);
   }
 
-  /*
-    GET /match/{id}
-    Find a match by id
-  */
+  /**
+   * GET /match/{id}
+   * Find a match by id
+   * @param {string} id
+   * @returns {Promise<Match>}
+   */
   @Get(':id')
-  async findMatchById(@Param('id') id: string): Promise<Match | Error> {
+  async findMatchById(@Param('id') id: string): Promise<Match> {
     return await this.matchService.findMatchById(id);
   }
 
-  /*
-    PATCH /{id}
-    Updates a match
-  */
+  /**
+   * PATCH /match/{id}
+   * Updates a match
+   * @param {string} id
+   * @param {UpdateMatchDto} updateMatchDto
+   * @returns {Promise<Match | Error>}
+   */
   @Patch(':id')
   async updateMatch(
     @Param('id') id: string,
@@ -49,10 +57,12 @@ export class MatchController {
     return await this.matchService.updateMatch(id, updateMatchDto);
   }
 
-  /*
-    Delete /match/{id}
-    Deletes a match
-  */
+  /**
+   * Delete /match/{id}
+   * Deletes a match
+   * @param {string} id
+   * @returns {Promise <Match | Error>}
+   */
   @Delete(':id')
   async deleteMatch(@Param('id') id: string): Promise<Match | Error> {
     return await this.matchService.deleteMatch(id);

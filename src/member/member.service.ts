@@ -14,10 +14,11 @@ export class MemberService {
     private memberRepository: MemberRepository,
   ) {}
 
-  /*
-    service function for POST /member:
-    Create a member of a team along with an entry in the person table
-  */
+  /**
+   * Create a member of a team along with an entry in the person table
+   * @param {CreateMemberDto} createMemberDto
+   * @returns {Member<Member | Error>}
+   */
   async createMember(
     createMemberDto: CreateMemberDto,
   ): Promise<Member | Error> {
@@ -31,10 +32,10 @@ export class MemberService {
     }
   }
 
-  /*
-  GET /member/free-agent
-  return all players without a team
-  */
+  /**
+   * return all players without a team
+   * @returns {Promise<Member[] | Error>}
+   */
   async findFreeAgents(): Promise<Member[] | Error> {
     try {
       return await this.memberRepository.findFreeAgents();
@@ -44,23 +45,21 @@ export class MemberService {
     }
   }
 
-  /*
-  GET /member/{id}:
-  this should return member data and person data
-  */
-  async findMemberById(id: string): Promise<Member | Error> {
-    try {
-      return await this.memberRepository.findMemberById(id);
-    } catch (e) {
-      console.log(e);
-      return e;
-    }
+  /**
+   * filter by id
+   * @param {string} id
+   * @returns {Promise<Member>}
+   */
+  async findMemberById(id: string): Promise<Member> {
+    return await this.memberRepository.findMemberById(id);
   }
 
-  /*
-  PATCH /member/{id}
-  update a member via id
-  */
+  /**
+   * updates member and saves changes to database
+   * @param {string} id
+   * @param {UpdateMemberDto} updateMemberDto
+   * @returns {Promise<Member | Error>}
+   */
   async updateMemberById(
     id: string,
     updateMemberDto: UpdateMemberDto,
@@ -78,10 +77,12 @@ export class MemberService {
     }
   }
 
-  /*
-  PATCH /member/{id}/status
-  update a member's status
-  */
+  /**
+   * update a member's status
+   * @param {string} id
+   * @param {updateMemberStatusDto} updateMemberStatusDto
+   * @returns {Promise<Member | Error>}
+   */
   async updateMemberStatus(
     id: string,
     updateMemberStatusDto: UpdateMemberStatusDto,
@@ -98,10 +99,11 @@ export class MemberService {
     }
   }
 
-  /*
-  DELETE /member/{id}
-  delete a member
-  */
+  /**
+   * deletes a member
+   * @param {string} id
+   * @returns {Promise<Member | Error>}
+   */
   async deleteMember(id: string): Promise<Member | Error> {
     try {
       const member = await this.memberRepository.findMemberById(id);

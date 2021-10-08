@@ -28,7 +28,6 @@ export class TeamService {
   async createTeam(createTeamDto: CreateTeamDto): Promise<Team | Error> {
     try {
       const team = TeamMapper.toDomain(createTeamDto);
-
       return await this.teamRepository.createTeam(team);
     } catch (e) {
       console.log(e);
@@ -51,8 +50,8 @@ export class TeamService {
    * @returns {Promise<Team>}
    */
   async findTeamMatches(id: string): Promise<Match[] | Error> {
+    await this.teamRepository.findTeamById(id);
     try {
-      await this.teamRepository.findTeamById(id);
       return await this.matchRepository.getTeamMatches(id);
     } catch (e) {
       console.log(e);
@@ -72,8 +71,8 @@ export class TeamService {
     status?: Status,
     role?: Role,
   ): Promise<Member[] | Error> {
+    await this.teamRepository.findTeamById(id);
     try {
-      await this.teamRepository.findTeamById(id);
       return await this.memberRepository.getTeamMembers(id, status, role);
     } catch (e) {
       console.log(e);
@@ -145,8 +144,8 @@ export class TeamService {
    * @returns {Promise<Team | Error>}
    */
   async removeTeam(id: string): Promise<Team | Error> {
+    const team: Team = await this.teamRepository.findTeamById(id);
     try {
-      const team = await this.teamRepository.findTeamById(id);
       return await this.teamRepository.deleteTeam(team);
     } catch (e) {
       console.log(e);

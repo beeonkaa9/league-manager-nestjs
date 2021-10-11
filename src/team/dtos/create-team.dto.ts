@@ -5,7 +5,7 @@ export enum teamStatus {
   Inactive = 'INACTIVE',
 }
 export class CreateTeamDto {
-  @ApiProperty()
+  @ApiPropertyOptional()
   id: string;
 
   @ApiProperty()

@@ -1,5 +1,5 @@
 import { Member } from '../../member/models/member.entity';
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Match } from '../../match/models/match.entity';
 
 export enum teamStatus {
@@ -8,7 +8,7 @@ export enum teamStatus {
 }
 @Entity()
 export class Team {
-  @PrimaryColumn({ type: 'text' })
+  @PrimaryGeneratedColumn('uuid')
   private id: string;
   get getId(): string {
     return this.id;

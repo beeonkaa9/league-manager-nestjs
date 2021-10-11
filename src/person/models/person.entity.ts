@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryColumn, TableInheritance } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  TableInheritance,
+} from 'typeorm';
 
 export enum Role {
   Manager = 'MANAGER',
@@ -30,7 +35,7 @@ export enum Status {
 @Entity()
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export class Person {
-  @PrimaryColumn({ type: 'text' })
+  @PrimaryGeneratedColumn('uuid')
   private id: string;
   get getId(): string {
     return this.id;

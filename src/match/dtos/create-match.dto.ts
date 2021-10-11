@@ -1,7 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateMatchDto {
-  @ApiProperty()
+  @ApiPropertyOptional()
   id: string;
 
   @ApiProperty()

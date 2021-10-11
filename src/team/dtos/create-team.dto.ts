@@ -16,5 +16,7 @@ export class CreateTeamDto {
 
   @ApiPropertyOptional()
   captain: string | null;
+
+  @ApiProperty()
   status: teamStatus;
 }

@@ -5,18 +5,27 @@ export enum teamStatus {
   Inactive = 'INACTIVE',
 }
 export class CreateTeamDto {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    type: 'uuid',
+    example: '190b39a9-e6c7-4fe4-bcc6-e68ac854a1ef',
+  })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: 'string', example: 'ECG Team' })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    type: 'uuid',
+    example: '7345bdff-3201-491e-89c3-662d8b3c3f16',
+  })
   coach: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    type: 'uuid',
+    example: '190b39a9-e6c7-4fe4-bcc6-e68ac854a1ef',
+  })
   captain: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ enum: ['Active', 'Inactive'] })
   status: teamStatus;
 }

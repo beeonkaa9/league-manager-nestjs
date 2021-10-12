@@ -28,30 +28,54 @@ export enum Status {
 }
 
 export class CreatePersonDto {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    type: 'uuid',
+    example: '190b39a9-e6c7-4fe4-bcc6-e68ac854a1ef',
+  })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: 'string', example: 'Mona' })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: 'string', example: 'Lisa' })
   last_name: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ type: 'int', example: '9157778811' })
   phone: number;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ type: 'string', example: 'example@mail.com' })
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: 'date', example: '11/11/1999' })
   dob: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: [
+      'Manager',
+      'Coach',
+      'Referee',
+      'Linesman',
+      'MedicalStaff',
+      'Captain',
+      'ScoreKeeper',
+      'Goalkeeper',
+      'RightFullback',
+      'LeftFullback',
+      'CenterBack',
+      'Sweeper',
+      'DefendingMidfielder',
+      'RightMidfielder',
+      'CentralMidfielder',
+      'Striker',
+      'AttackingMidfielder',
+      'LeftMidfielder',
+    ],
+  })
   role: Role;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ enum: ['Active', 'Inactive', 'Suspended'] })
   status: Status;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ type: 'number', example: '21' })
   age: number;
 }

@@ -26,7 +26,7 @@ export class TeamService {
    * @returns {Promise<Team | Error>}
    */
   async createTeam(createTeamDto: CreateTeamDto): Promise<Team | Error> {
-    const teamId = this.teamRepository.findOne(createTeamDto.id);
+    const teamId = await this.teamRepository.findOne(createTeamDto.id);
     if (teamId) {
       throw new NotAcceptableException('this team id already exists');
     }

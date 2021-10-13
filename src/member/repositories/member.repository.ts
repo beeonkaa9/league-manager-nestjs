@@ -80,13 +80,22 @@ export class MemberRepository
       .from(Member, 'member')
       .where('member.team_id = :teamid', { teamid: id });
 
-    if (status != null) {
+    // if (status != null) {
+    //   query = query.andWhere('member.status = :status', { status: status });
+    // }
+    if (status)
       query = query.andWhere('member.status = :status', { status: status });
-    }
-    if (status == null && role != null) {
-      query = query.andWhere('member.role = :role', { role: role });
-    }
-    if (status != null && role != null) {
+
+    // if (status == null && role != null) {
+    //   query = query.andWhere('member.role = :role', { role: role });
+    // }
+    if (role) query = query.andWhere('member.role = :role', { role: role });
+
+    // if (status != null && role != null) {
+    //   query = query.andWhere('member.status = :status', { status: status });
+    //   query = query.andWhere('member.role = :role', { role: role });
+    // }
+    if (status && role) {
       query = query.andWhere('member.status = :status', { status: status });
       query = query.andWhere('member.role = :role', { role: role });
     }

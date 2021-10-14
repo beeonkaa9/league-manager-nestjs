@@ -5,26 +5,20 @@ export class initDb1630001376375 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`GRANT CONNECT ON DATABASE "league" TO "apiuser"`);
-    await queryRunner.query(`CREATE SCHEMA IF NOT EXISTS "member"`);
-    await queryRunner.query(`CREATE SCHEMA IF NOT EXISTS "person"`);
-    await queryRunner.query(`CREATE SCHEMA IF NOT EXISTS "team"`);
-    await queryRunner.query(`CREATE SCHEMA IF NOT EXISTS "match"`);
+    await queryRunner.query(`CREATE SCHEMA IF NOT EXISTS "leaguemanager"`);
     await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
     await queryRunner.query(
-      `ALTER ROLE "apiuser" SET search_path TO public, member, person, team, match`,
+      `ALTER ROLE "apiuser" SET search_path TO "leaguemanager","public"`,
     );
     await queryRunner.query(
-      `GRANT USAGE ON SCHEMA public, member, person, team, match TO "apiuser"`,
+      `GRANT USAGE ON SCHEMA public, leaguemanager TO "apiuser"`,
     );
     await queryRunner.query(
-      `ALTER DEFAULT PRIVILEGES IN SCHEMA public, member, person, team, match GRANT ALL ON TABLES TO "apiuser"`,
+      `ALTER DEFAULT PRIVILEGES IN SCHEMA public, leaguemanager GRANT ALL ON TABLES TO "apiuser"`,
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP SCHEMA IF EXISTS "member" CASCADE`);
-    await queryRunner.query(`DROP SCHEMA IF EXISTS "person" CASCADE`);
-    await queryRunner.query(`DROP SCHEMA IF EXISTS "team" CASCADE`);
-    await queryRunner.query(`DROP SCHEMA IF EXISTS "match" CASCADE`);
+    await queryRunner.query(`DROP SCHEMA IF EXISTS "leaguemanager" CASCADE`);
   }
 }

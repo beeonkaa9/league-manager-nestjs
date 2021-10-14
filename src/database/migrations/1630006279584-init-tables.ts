@@ -15,8 +15,10 @@ export class initTables1630006279584 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'text',
+            type: 'uuid',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'uuid',
           },
           {
             name: 'name',
@@ -31,13 +33,13 @@ export class initTables1630006279584 implements MigrationInterface {
           {
             name: 'phone',
             type: 'character varying',
-            isNullable: false,
+            isNullable: true,
             isUnique: true,
           },
           {
             name: 'email',
             type: 'character varying',
-            isNullable: false,
+            isNullable: true,
             isUnique: true,
           },
           {
@@ -75,22 +77,23 @@ export class initTables1630006279584 implements MigrationInterface {
             name: 'status',
             type: 'enum',
             enum: ['active', 'inactive', 'suspended'],
-            enumName: 'roleStatus',
-            isNullable: false,
+            enumName: 'statusEnum',
+            isNullable: true,
           },
           {
             name: 'age',
             type: 'integer',
-            isNullable: false,
+            isNullable: true,
           },
           {
             name: 'team_id',
-            type: 'text',
+            type: 'uuid',
             isNullable: true,
           },
           {
             name: 'stats',
             type: 'json',
+            isNullable: true,
           },
           {
             name: 'type',
@@ -99,14 +102,17 @@ export class initTables1630006279584 implements MigrationInterface {
         ],
       }),
     );
+
     await queryRunner.createTable(
       new Table({
         name: 'team',
         columns: [
           {
             name: 'id',
-            type: 'text',
+            type: 'uuid',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'uuid',
           },
           {
             name: 'name',
@@ -116,12 +122,12 @@ export class initTables1630006279584 implements MigrationInterface {
           },
           {
             name: 'coach',
-            type: 'text',
+            type: 'uuid',
             isNullable: false,
           },
           {
             name: 'captain',
-            type: 'text',
+            type: 'uuid',
             isNullable: true,
           },
           {
@@ -141,17 +147,19 @@ export class initTables1630006279584 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'text',
+            type: 'uuid',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'uuid',
           },
           {
             name: 'home',
-            type: 'text',
+            type: 'uuid',
             isNullable: false,
           },
           {
             name: 'away',
-            type: 'text',
+            type: 'uuid',
             isNullable: false,
           },
           {

@@ -14,13 +14,13 @@ export class Match {
     return this.id;
   }
 
-  @Column({ type: 'character varying', nullable: false })
+  @Column({ type: 'uuid', nullable: false })
   private home: string;
   get getHome(): string {
     return this.home;
   }
 
-  @Column({ type: 'character varying', nullable: false })
+  @Column({ type: 'uuid', nullable: false })
   private away: string;
   get getAway(): string {
     return this.away;

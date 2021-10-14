@@ -53,13 +53,13 @@ export class Person {
     return this.last_name;
   }
 
-  @Column({ type: 'character varying', nullable: false, unique: true })
+  @Column({ type: 'character varying', nullable: true, unique: true })
   private phone: number;
   get getPhone(): number {
     return this.phone;
   }
 
-  @Column({ type: 'character varying', nullable: false, unique: true })
+  @Column({ type: 'character varying', nullable: true, unique: true })
   private email: string;
   get getEmail(): string {
     return this.email;
@@ -104,15 +104,15 @@ export class Person {
   @Column({
     type: 'enum',
     enum: ['active', 'inactive', 'suspended'],
-    enumName: 'roleStatus',
-    nullable: false,
+    enumName: 'statusEnum',
+    nullable: true,
   })
   private status: Status;
   get getStatus(): Status {
     return this.status;
   }
 
-  @Column({ name: 'age', type: 'integer', nullable: false })
+  @Column({ name: 'age', type: 'integer', nullable: true })
   private age: number;
   get getAge(): number {
     return this.age;

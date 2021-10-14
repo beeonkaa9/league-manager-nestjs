@@ -20,13 +20,13 @@ export class Team {
     return this.name;
   }
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'uuid', nullable: false })
   private coach: string;
   get getCoach(): string {
     return this.coach;
   }
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: 'uuid', nullable: true })
   private captain: string | null;
   get getCaptain(): string | null {
     return this.captain;

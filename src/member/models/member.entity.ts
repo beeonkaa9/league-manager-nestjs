@@ -15,7 +15,7 @@ export class Member extends Person {
     return this.team_id;
   }
 
-  @Column({ type: 'json' })
+  @Column({ type: 'json', nullable: true })
   private stats: Stats;
   get getStats(): Stats {
     return this.stats;

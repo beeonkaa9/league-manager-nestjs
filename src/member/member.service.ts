@@ -1,4 +1,4 @@
-import { Injectable, NotAcceptableException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateMemberDto } from './dtos/create-member.dto';
 import { UpdateMemberStatusDto } from './dtos/update-member-status.dto';
@@ -22,10 +22,6 @@ export class MemberService {
   async createMember(
     createMemberDto: CreateMemberDto,
   ): Promise<Member | Error> {
-    const memberId = await this.memberRepository.findOne(createMemberDto.id);
-    if (memberId) {
-      throw new NotAcceptableException('this member id already exists');
-    }
     try {
       const member = MemberMapper.toDomain(createMemberDto);
 

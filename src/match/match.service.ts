@@ -18,11 +18,6 @@ export class MatchService {
    * @returns {Promise <Match | Error>}
    */
   async createMatch(createMatchDto: CreateMatchDto): Promise<Match | Error> {
-    const matchId = await this.matchRepository.findOne(createMatchDto.id);
-    if (matchId) {
-      throw new NotAcceptableException('this match id already exists');
-    }
-
     //ensures that a team cannot play against itself
     if (createMatchDto.home == createMatchDto.away) {
       throw new NotAcceptableException(

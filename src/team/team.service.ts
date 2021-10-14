@@ -1,4 +1,4 @@
-import { Injectable, NotAcceptableException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Match } from 'src/match/models/match.entity';
 import { MatchRepository } from 'src/match/repositories/match.repository';
 import { MemberRepository } from 'src/member/repositories/member.repository';
@@ -26,10 +26,6 @@ export class TeamService {
    * @returns {Promise<Team | Error>}
    */
   async createTeam(createTeamDto: CreateTeamDto): Promise<Team | Error> {
-    const teamId = await this.teamRepository.findOne(createTeamDto.id);
-    if (teamId) {
-      throw new NotAcceptableException('this team id already exists');
-    }
     try {
       const team = TeamMapper.toDomain(createTeamDto);
       return await this.teamRepository.createTeam(team);

@@ -26,7 +26,6 @@ export class Member extends Person {
   team: Team;
 
   constructor(
-    id: string,
     name: string,
     last_name: string,
     phone: number,
@@ -38,7 +37,7 @@ export class Member extends Person {
     stats: Stats,
     team_id?: string,
   ) {
-    super(id, name, last_name, phone, email, dob, role, status, age);
+    super(name, last_name, phone, email, dob, role, status, age);
     this.team_id = team_id;
     this.stats = stats;
   }

@@ -119,7 +119,6 @@ export class Person {
   }
 
   constructor(
-    id: string,
     name: string,
     last_name: string,
     phone: number,
@@ -129,7 +128,6 @@ export class Person {
     status: Status,
     age: number,
   ) {
-    this.id = id;
     this.name = name;
     this.last_name = last_name;
     this.phone = phone;

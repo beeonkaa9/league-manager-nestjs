@@ -4,7 +4,6 @@ import { Team } from '../models/team.entity';
 export class TeamMapper {
   public static toDto(raw: Team): CreateTeamDto {
     const teamDto = new CreateTeamDto();
-    teamDto.id = raw.getId;
     teamDto.name = raw.getName;
     teamDto.coach = raw.getCoach;
     teamDto.captain = raw.getCaptain;
@@ -15,7 +14,6 @@ export class TeamMapper {
 
   public static toDomain(createTeamDto: CreateTeamDto): Team {
     const team = new Team(
-      createTeamDto.id,
       createTeamDto.name,
       createTeamDto.coach,
       createTeamDto.status,

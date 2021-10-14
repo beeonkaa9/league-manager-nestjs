@@ -5,7 +5,6 @@ import { Match } from '../models/match.entity';
 export class MatchMapper {
   public static toDto(raw: Match): CreateMatchDto {
     const matchDto = new CreateMatchDto();
-    matchDto.id = raw.getId;
     matchDto.home = raw.getHome;
     matchDto.away = raw.getAway;
     matchDto.home_score = raw.getHomeScore;
@@ -19,7 +18,6 @@ export class MatchMapper {
   //converts from dto to entity
   public static toDomain(createMatchDto: CreateMatchDto): Match {
     const match = new Match(
-      createMatchDto.id,
       createMatchDto.home,
       createMatchDto.away,
       createMatchDto.home_score,

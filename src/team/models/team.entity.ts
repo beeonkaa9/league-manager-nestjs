@@ -50,13 +50,11 @@ export class Team {
   matches: Match[];
 
   constructor(
-    id: string,
     name: string,
     coach: string,
     status: teamStatus,
     captain?: string,
   ) {
-    this.id = id;
     this.name = name;
     this.coach = coach;
     this.captain = captain;

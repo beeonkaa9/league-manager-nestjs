@@ -56,7 +56,6 @@ export class Match {
   team: Team;
 
   constructor(
-    id: string,
     home: string,
     away: string,
     home_score: number,
@@ -64,7 +63,6 @@ export class Match {
     played: string,
     location: string,
   ) {
-    this.id = id;
     this.home = home;
     this.away = away;
     this.home_score = home_score;

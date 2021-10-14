@@ -4,7 +4,6 @@ import { Member } from '../models/member.entity';
 export class MemberMapper {
   public static toDto(raw: Member): CreateMemberDto {
     const memberDto = new CreateMemberDto();
-    memberDto.id = raw.getId;
     memberDto.name = raw.getName;
     memberDto.last_name = raw.getLastName;
     memberDto.phone = raw.getPhone;
@@ -21,7 +20,6 @@ export class MemberMapper {
 
   public static toDomain(createMemberDto: CreateMemberDto): Member {
     const member = new Member(
-      createMemberDto.id,
       createMemberDto.name,
       createMemberDto.last_name,
       createMemberDto.phone,

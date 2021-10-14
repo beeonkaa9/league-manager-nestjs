@@ -1,12 +1,6 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateMatchDto {
-  @ApiPropertyOptional({
-    type: 'uuid',
-    example: '18eeebef-9dc5-435c-ac52-1311b335c96e',
-  })
-  id: string;
-
   @ApiProperty({
     type: 'uuid',
     example: '190b39a9-e6c7-4fe4-bcc6-e68ac854a1ef',

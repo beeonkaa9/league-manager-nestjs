@@ -28,12 +28,6 @@ export enum Status {
 }
 
 export class CreatePersonDto {
-  @ApiPropertyOptional({
-    type: 'uuid',
-    example: '190b39a9-e6c7-4fe4-bcc6-e68ac854a1ef',
-  })
-  id: string;
-
   @ApiProperty({ type: 'string', example: 'Mona' })
   name: string;
 

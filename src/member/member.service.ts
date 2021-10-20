@@ -51,7 +51,7 @@ export class MemberService {
     } catch (e) {
       console.log(`${e.name}: ${e.message}`);
       console.trace();
-      return new MemberCreateError(e.message);
+      return new MemberCreateError(`${e.name}: ${e.message}`);
     }
   }
 
@@ -69,7 +69,7 @@ export class MemberService {
     } catch (e) {
       console.log(`${e.name}: ${e.message}`);
       console.trace();
-      return new FreeAgentsError(e.message);
+      return new FreeAgentsError(`${e.name}: ${e.message}`);
     }
   }
 
@@ -88,7 +88,7 @@ export class MemberService {
     } catch (e) {
       console.log(`${e.name}: ${e.message}`);
       console.trace();
-      return new FindMemberError(e.message);
+      return new FindMemberError(`${e.name}: ${e.message}`);
     }
   }
 
@@ -118,7 +118,7 @@ export class MemberService {
     } catch (e) {
       console.log(`${e.name}: ${e.message}`);
       console.trace();
-      return new UpdateMemberByIdError(e.message);
+      return new UpdateMemberByIdError(`${e.name}: ${e.message}`);
     }
   }
 
@@ -149,7 +149,7 @@ export class MemberService {
     } catch (e) {
       console.log(`${e.name}: ${e.message}`);
       console.trace();
-      return new UpdateMemberStatusError(e.message);
+      return new UpdateMemberStatusError(`${e.name}: ${e.message}`);
     }
   }
 
@@ -172,7 +172,7 @@ export class MemberService {
     } catch (e) {
       console.log(`${e.name}: ${e.message}`);
       console.trace();
-      return new DeleteMemberError(e.message);
+      return new DeleteMemberError(`${e.name}: ${e.message}`);
     }
   }
 }

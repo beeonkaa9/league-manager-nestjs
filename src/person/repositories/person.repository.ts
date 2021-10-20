@@ -18,15 +18,10 @@ export class PersonRepository
    * @returns {Promise:<Person>}
    */
   public async findPersonById(id: string): Promise<Person> {
-    try {
-      await this.findOneOrFail(id);
-      //return only data from person entity (no team_id or stats)
-      return await this.query(
-        `SELECT id, name, last_name, phone, email, dob, role, status, age FROM PERSON where id = $1`,
-        [id],
-      );
-    } catch {
-      throw new NotFoundException('this id does not exist in the system');
-    }
+    //return only data from person entity (no team_id or stats)
+    return await this.query(
+      `SELECT id, name, last_name, phone, email, dob, role, status, age FROM PERSON where id = $1`,
+      [id],
+    );
   }
 }

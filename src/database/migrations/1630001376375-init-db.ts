@@ -8,7 +8,7 @@ export class initDb1630001376375 implements MigrationInterface {
     await queryRunner.query(`CREATE SCHEMA IF NOT EXISTS "leaguemanager"`);
     await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
     await queryRunner.query(
-      `ALTER ROLE "apiuser" SET search_path TO "leaguemanager","public"`,
+      `ALTER ROLE "apiuser" SET search_path TO "public","leaguemanager"`,
     );
     await queryRunner.query(
       `GRANT USAGE ON SCHEMA public, leaguemanager TO "apiuser"`,

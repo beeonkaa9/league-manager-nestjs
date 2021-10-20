@@ -44,11 +44,8 @@ export class MemberRepository
    * @returns {Promise<Member>}
    */
   public async findMemberById(id: string): Promise<Member> {
-    try {
-      return await this.findOneOrFail(id);
-    } catch (e) {
-      throw new NotFoundException('this id does not exist in the table');
-    }
+    // return await this.findOneOrFail(id);
+    return await this.findOne(id);
   }
 
   /**
@@ -80,21 +77,11 @@ export class MemberRepository
       .from(Member, 'member')
       .where('member.team_id = :teamid', { teamid: id });
 
-    // if (status != null) {
-    //   query = query.andWhere('member.status = :status', { status: status });
-    // }
     if (status)
       query = query.andWhere('member.status = :status', { status: status });
 
-    // if (status == null && role != null) {
-    //   query = query.andWhere('member.role = :role', { role: role });
-    // }
     if (role) query = query.andWhere('member.role = :role', { role: role });
 
-    // if (status != null && role != null) {
-    //   query = query.andWhere('member.status = :status', { status: status });
-    //   query = query.andWhere('member.role = :role', { role: role });
-    // }
     if (status && role) {
       query = query.andWhere('member.status = :status', { status: status });
       query = query.andWhere('member.role = :role', { role: role });

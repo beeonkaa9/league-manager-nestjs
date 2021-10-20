@@ -1,4 +1,4 @@
-import { portToNumber } from './functions/envfunctions';
+import { portToNumber } from './core/functions/envfunctions';
 import * as dotenv from 'dotenv';
 
 dotenv.config();

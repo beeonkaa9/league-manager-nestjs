@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { LeagueError } from '../core/errors/league-error';
 import { CreateMemberDto } from './dtos/create-member.dto';
 import { UpdateMemberStatusDto } from './dtos/update-member-status.dto';
 import { UpdateMemberDto } from './dtos/update-member.dto';
@@ -23,22 +24,22 @@ export class MemberController {
    * POST /member:
    * Create a member of a team along with an entry in the person table
    * @param {CreateMemberDto} createMemberDto
-   * @returns {Member<Member | Error>}
+   * @returns {Member<Member | LeagueError>}
    */
   @Post()
   async createMember(
     @Body() createMemberDto: CreateMemberDto,
-  ): Promise<Member | Error> {
+  ): Promise<Member | LeagueError> {
     return await this.memberService.createMember(createMemberDto);
   }
 
   /**
    * GET /member/free-agent
    * return all players without a team
-   * @returns {Promise<Member[] | Error>}
+   * @returns {Promise<Member[] | LeagueError>}
    */
   @Get('/free-agent')
-  async findFreeAgents(): Promise<Member[] | Error> {
+  async findFreeAgents(): Promise<Member[] | LeagueError> {
     return await this.memberService.findFreeAgents();
   }
 
@@ -46,10 +47,10 @@ export class MemberController {
    * GET /member/{id}:
    * filter by id ; returns member and person data
    * @param {string} id
-   * @returns {Promise<Member>}
+   * @returns {Promise<Member | LeagueError>}
    */
   @Get(':id')
-  async findMemberById(@Param('id') id: string): Promise<Member> {
+  async findMemberById(@Param('id') id: string): Promise<Member | LeagueError> {
     return await this.memberService.findMemberById(id);
   }
 
@@ -58,13 +59,13 @@ export class MemberController {
    * updates member and saves changes to database
    * @param {string} id
    * @param {UpdateMemberDto} updateMemberDto
-   * @returns {Promise<Member | Error>}
+   * @returns {Promise<Member | LeagueError>}
    */
   @Patch(':id')
   async updateMemberById(
     @Param('id') id: string,
     @Body() updateMemberDto: UpdateMemberDto,
-  ): Promise<Member | Error> {
+  ): Promise<Member | LeagueError> {
     return await this.memberService.updateMemberById(id, updateMemberDto);
   }
 
@@ -73,13 +74,13 @@ export class MemberController {
    * update a member's status
    * @param {string} id
    * @param {updateMemberStatusDto} updateMemberStatusDto
-   * @returns {Promise<Member | Error>}
+   * @returns {Promise<Member | LeagueError>}
    */
   @Patch(':id/status')
   async updateMemberStatus(
     @Param('id') id: string,
     @Body() updateMemberStatusDto: UpdateMemberStatusDto,
-  ): Promise<Member | Error> {
+  ): Promise<Member | LeagueError> {
     return await this.memberService.updateMemberStatus(
       id,
       updateMemberStatusDto,
@@ -90,10 +91,10 @@ export class MemberController {
    * DELETE /member/{id}
    * deletes a member
    * @param {string} id
-   * @returns {Promise<Member | Error>}
+   * @returns {Promise<Member | LeagueError>}
    */
   @Delete(':id')
-  async deleteMember(@Param('id') id: string): Promise<Member | Error> {
+  async deleteMember(@Param('id') id: string): Promise<Member | LeagueError> {
     return await this.memberService.deleteMember(id);
   }
 }

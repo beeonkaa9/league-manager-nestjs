@@ -27,9 +27,9 @@ export enum Role {
 }
 
 export enum Status {
-  active = 'ACTIVE',
-  inactive = 'INACTIVE',
-  suspended = 'SUSPENDED',
+  Active = 'ACTIVE',
+  Inactive = 'INACTIVE',
+  Suspended = 'SUSPENDED',
 }
 
 @Entity()
@@ -103,7 +103,7 @@ export class Person {
 
   @Column({
     type: 'enum',
-    enum: ['active', 'inactive', 'suspended'],
+    enum: ['Active', 'Inactive', 'Suspended'],
     enumName: 'statusEnum',
     nullable: true,
   })

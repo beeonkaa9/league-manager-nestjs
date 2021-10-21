@@ -34,7 +34,7 @@ export class Team {
 
   @Column({
     type: 'enum',
-    enum: ['active', 'inactive'],
+    enum: ['Active', 'Inactive'],
     enumName: 'teamEnum',
     nullable: false,
   })

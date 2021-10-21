@@ -22,9 +22,9 @@ export enum Role {
 }
 
 export enum Status {
-  active = 'ACTIVE',
-  inactive = 'INACTIVE',
-  suspended = 'SUSPENDED',
+  Active = 'ACTIVE',
+  Inactive = 'INACTIVE',
+  Suspended = 'SUSPENDED',
 }
 
 export class CreatePersonDto {

@@ -76,7 +76,7 @@ export class initTables1630006279584 implements MigrationInterface {
           {
             name: 'status',
             type: 'enum',
-            enum: ['active', 'inactive', 'suspended'],
+            enum: ['Active', 'Inactive', 'Suspended'],
             enumName: 'statusEnum',
             isNullable: true,
           },
@@ -133,7 +133,7 @@ export class initTables1630006279584 implements MigrationInterface {
           {
             name: 'status',
             type: 'enum',
-            enum: ['active', 'inactive'],
+            enum: ['Active', 'Inactive'],
             enumName: 'teamEnum',
             isNullable: false,
           },

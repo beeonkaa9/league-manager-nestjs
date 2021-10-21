@@ -36,11 +36,12 @@ export class TeamRepository
    * @returns {Promise<Team>}
    */
   public async findTeamById(id: string): Promise<Team> {
-    try {
-      return await this.findOneOrFail(id);
-    } catch {
-      throw new NotFoundException('this id does not exist in the teams table');
-    }
+    // try {
+    //   return await this.findOneOrFail(id);
+    // } catch {
+    //   throw new NotFoundException('this id does not exist in the teams table');
+    // }
+    return await this.findOne(id);
   }
 
   /**

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Role, Status } from 'src/person/models/person.entity';
 import { EntityRepository, Repository } from 'typeorm';
 import { Query } from 'typeorm/driver/Query';

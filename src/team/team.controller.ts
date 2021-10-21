@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { LeagueError } from '../core/errors/league-error';
 import { Match } from 'src/match/models/match.entity';
 import { Member } from '../member/models/member.entity';
 import { Role, Status } from '../person/models/person.entity';
@@ -28,12 +29,12 @@ export class TeamController {
    * POST /team:
    * creates a team
    * @param {CreateTeamDto} createTeamDto
-   * @returns {Promise<Team | Error>}
+   * @returns {Promise<Team | LeagueError>}
    */
   @Post()
   async createTeam(
     @Body() createTeamDto: CreateTeamDto,
-  ): Promise<Team | Error> {
+  ): Promise<Team | LeagueError> {
     return await this.teamService.createTeam(createTeamDto);
   }
 
@@ -41,10 +42,10 @@ export class TeamController {
    * GET /team/{id}
    * returns a team
    * @param {string} id
-   * @returns {Promise<Team>}
+   * @returns {Promise<Team | LeagueError>}
    */
   @Get(':id')
-  async findTeamById(@Param('id') id: string): Promise<Team> {
+  async findTeamById(@Param('id') id: string): Promise<Team | LeagueError> {
     return await this.teamService.findTeamById(id);
   }
 
@@ -52,10 +53,12 @@ export class TeamController {
    * GET /team/{id}/matches
    * returns all matches a team has participated in
    * @param {string} id
-   * @returns {Promise<Team>}
+   * @returns {Promise<Team | LeagueError>}
    */
   @Get(':id/matches')
-  async findTeamMatches(@Param('id') id: string): Promise<Match[] | Error> {
+  async findTeamMatches(
+    @Param('id') id: string,
+  ): Promise<Match[] | LeagueError> {
     return await this.teamService.findTeamMatches(id);
   }
 
@@ -65,7 +68,7 @@ export class TeamController {
    * @param {string} id
    * @param {Status} status
    * @param {Role} role
-   * @returns {Promise<Member[] |  Error>}
+   * @returns {Promise<Member[] |  LeagueError>}
    */
   @ApiQuery({ name: 'status', required: false })
   @ApiQuery({ name: 'role', required: false })
@@ -74,7 +77,7 @@ export class TeamController {
     @Param('id') id: string,
     @Query('status') status?: Status,
     @Query('role') role?: Role,
-  ): Promise<Member[] | Error> {
+  ): Promise<Member[] | LeagueError> {
     return await this.teamService.findTeamMembers(id, status, role);
   }
 
@@ -82,10 +85,12 @@ export class TeamController {
    * GET /team/{id}/stats
    * calculates the wins, losses, players, and matches of a team
    * @param {string} id
-   * @returns {Promise<TeamStatsDto | Error>}
+   * @returns {Promise<TeamStatsDto | LeagueError>}
    */
   @Get(':id/stats')
-  async findTeamStats(@Param('id') id: string): Promise<TeamStatsDto | Error> {
+  async findTeamStats(
+    @Param('id') id: string,
+  ): Promise<TeamStatsDto | LeagueError> {
     return await this.teamService.getTeamStats(id);
   }
 
@@ -94,13 +99,13 @@ export class TeamController {
    * updates team; saves changes to database
    * @param {string} id
    * @param {UpdateTeamDto} updateTeamDto
-   * @returns {Promise<Team | Error>}
+   * @returns {Promise<Team | LeagueError>}
    */
   @Patch(':id')
   async updateTeamById(
     @Param('id') id: string,
     @Body() updateTeamDto: UpdateTeamDto,
-  ): Promise<Team | Error> {
+  ): Promise<Team | LeagueError> {
     return await this.teamService.updateTeamById(id, updateTeamDto);
   }
 
@@ -109,13 +114,13 @@ export class TeamController {
    * updates a team's status
    * @param {string} id
    * @param {UpdateTeamStatusDto} updateTeamStatusDto
-   * @returns {Promise<Team | Error>}
+   * @returns {Promise<Team | LeagueError>}
    */
   @Patch(':id/status')
   async updateTeamStatus(
     @Param('id') id: string,
     @Body() updateTeamStatusDto: UpdateTeamStatusDto,
-  ): Promise<Team | Error> {
+  ): Promise<Team | LeagueError> {
     return await this.teamService.updateTeamStatus(id, updateTeamStatusDto);
   }
 
@@ -123,10 +128,10 @@ export class TeamController {
    * DELETE /team/{id}
    * deletes a team from the database
    * @param {string} id
-   * @returns {Promise<Team | Error>}
+   * @returns {Promise<Team | LeagueError>}
    */
   @Delete(':id')
-  async removeTeam(@Param('id') id: string): Promise<Team | Error> {
+  async removeTeam(@Param('id') id: string): Promise<Team | LeagueError> {
     return await this.teamService.removeTeam(id);
   }
 }

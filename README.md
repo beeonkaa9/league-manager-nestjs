@@ -1,72 +1,104 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+<p  align="center">
+
+<a  href="http://nestjs.com/"  target="blank"><img  src="https://nestjs.com/img/logo_text.svg"  width="320"  alt="Nest Logo" /></a>
+
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+An app for managing a soccer league with the ability to add/remove members, teams, and matches. Also manages staff information and auditing.
+
+## Configuration
+
+This project is currently configured to run on the following localhost ports via Docker containers:
+
+- postgres: 5433
+- app: 3001
+
+However, these can be changed via the docker-compose.yml file if desired.
+
+**A .env file is required to be able to run this project.**
+Make sure that your .env has **DB_HOST = postgres** set. Below is a sample .env:
+
+    NAME = MYAPP
+    HOST = localhost
+    PORT = 3000
+    DB_CONNECTION = postgres
+    DB_HOST = postgres
+    DB_USERNAME = username
+    DB_PASSWORD = passw0rd
+    DB_DATABASE = league
+    TYPEORM_PORT = 5432
+    TYPEORM_ENTITIES = src/**/models/*.entity{.ts,.js}
+    TYPEORM_MIGRATIONS = src/database/migrations/*{.ts,.js}
+    TYPEORM_MIGRATIONS_DIR = src/database/migrations
+
+**Add the following to your package.json:**
+
+    "start:docker": "(npm run migration) & nest start --watch"
+
+## Running the containers on Docker
+
+To start up the postgres and app containers needed to use this app as well as run migrations, run:
+
+    docker-compose up
+
+## OpenAPI Documentation
+
+OpenAPI Documentation is available for viewing endpoints and their operations, as well as DTO's and types. This is available at **localhost:{app container port}/docs** (localhost:3001/docs by default).
 
 ## Installation
 
 ```bash
+
 $ npm install
+
 ```
 
 ## Running the app
 
 ```bash
+
 # development
+
 $ npm run start
 
+
+
 # watch mode
+
 $ npm run start:dev
 
+
+
 # production mode
+
 $ npm run start:prod
+
 ```
 
 ## Test
 
 ```bash
+
 # unit tests
+
 $ npm run test
 
+
+
 # e2e tests
+
 $ npm run test:e2e
 
+
+
 # test coverage
+
 $ npm run test:cov
+
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Brackets, EntityRepository, Repository } from 'typeorm';
 import { UpdateMatchDto } from '../dtos/update-match.dto';
 import { Match } from '../models/match.entity';
@@ -35,11 +35,12 @@ export class MatchRepository
    * @returns {Promise<Match>}
    */
   public async findMatchById(id: string): Promise<Match> {
-    try {
-      return await this.findOneOrFail(id);
-    } catch (e) {
-      throw new NotFoundException('this id does not exist in the match table');
-    }
+    // try {
+    //   return await this.findOneOrFail(id);
+    // } catch (e) {
+    //   throw new NotFoundException('this id does not exist in the match table');
+    // }
+    return await this.findOne(id);
   }
 
   /**

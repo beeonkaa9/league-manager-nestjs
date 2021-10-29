@@ -11,7 +11,6 @@ export class PersonMapper {
     personDto.dob = raw.getDob;
     personDto.role = raw.getRole;
     personDto.status = raw.getStatus;
-    personDto.age = raw.getAge;
 
     return personDto;
   }
@@ -25,7 +24,6 @@ export class PersonMapper {
       createPersonDto.dob,
       createPersonDto.role,
       createPersonDto.status,
-      createPersonDto.age,
     );
     return person;
   }

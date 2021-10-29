@@ -33,11 +33,10 @@ export class Member extends Person {
     dob: string,
     role: Role,
     status: Status,
-    age: number,
     stats: Stats,
     team_id?: string,
   ) {
-    super(name, last_name, phone, email, dob, role, status, age);
+    super(name, last_name, phone, email, dob, role, status);
     this.team_id = team_id;
     this.stats = stats;
   }

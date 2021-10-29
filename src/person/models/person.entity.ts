@@ -112,12 +112,6 @@ export class Person {
     return this.status;
   }
 
-  @Column({ name: 'age', type: 'integer', nullable: true })
-  private age: number;
-  get getAge(): number {
-    return this.age;
-  }
-
   constructor(
     name: string,
     last_name: string,
@@ -126,7 +120,6 @@ export class Person {
     dob: string,
     role: Role,
     status: Status,
-    age: number,
   ) {
     this.name = name;
     this.last_name = last_name;
@@ -135,6 +128,5 @@ export class Person {
     this.dob = dob;
     this.role = role;
     this.status = status;
-    this.age = age;
   }
 }

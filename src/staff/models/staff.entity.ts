@@ -24,11 +24,10 @@ export class Staff extends Person {
     dob: string,
     role: Role,
     status: Status,
-    age: number,
     wage: number,
     hire_date: string,
   ) {
-    super(name, last_name, phone, email, dob, role, status, age);
+    super(name, last_name, phone, email, dob, role, status);
     this.wage = wage;
     this.hire_date = hire_date;
   }

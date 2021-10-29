@@ -11,7 +11,6 @@ export class MemberMapper {
     memberDto.dob = raw.getDob;
     memberDto.role = raw.getRole;
     memberDto.status = raw.getStatus;
-    memberDto.age = raw.getAge;
     memberDto.team_id = raw.getTeamId;
     memberDto.stats = raw.getStats;
 
@@ -27,7 +26,6 @@ export class MemberMapper {
       createMemberDto.dob,
       createMemberDto.role,
       createMemberDto.status,
-      createMemberDto.age,
       createMemberDto.stats,
       createMemberDto.team_id,
     );

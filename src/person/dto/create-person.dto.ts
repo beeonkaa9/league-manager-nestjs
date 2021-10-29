@@ -69,7 +69,4 @@ export class CreatePersonDto {
 
   @ApiPropertyOptional({ enum: ['Active', 'Inactive', 'Suspended'] })
   status: Status;
-
-  @ApiPropertyOptional({ type: 'number', example: '21' })
-  age: number;
 }
